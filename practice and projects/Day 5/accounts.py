@@ -9,10 +9,6 @@ class Account:
         return self.__balance
    
 
-
-
-        
-
     def deposit(self, amount):
         if amount <= 0:
             raise ValueError("Amount must be positive")
