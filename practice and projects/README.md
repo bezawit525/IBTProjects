@@ -2,4 +2,4 @@
 
 This repository contains my work, notes, and projects completed throughout the IBT Full Stack Software Development program.
 
-Created Bezawit Hayalu
+Created by Bezawit Hayalu
