@@ -21,7 +21,7 @@ class Account:
         self.owner = owner
         self.account_number = number
         self.__balance = balance
-        self.observers=[]
+        self._observers=[]
     @property
     def balance(self):
         return self.__balance
@@ -44,10 +44,10 @@ class Account:
         self._notify(f"-{amount} ETB withdrawn")
 
     def subscribe(self,obs):
-        self.observers.append(obs)
+        self._observers.append(obs)
 
     def _notify(self,event):
-        for obs in self.observers:
+        for obs in self._observers:
             obs.update(event)
 
     def statement(self):
