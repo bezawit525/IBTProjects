@@ -162,10 +162,80 @@ class AccountRegistry:
             return 0
  
         def _total(history):
-            if not history:              
+            if not history:               
                 return 0
             typ, amount = history[0]
             signed = amount if typ == "deposit" else -amount
             return signed + _total(history[1:])   
  
         return _total(acc.history)
+
+class Branch:
+    def __init__(self, name):
+        self.name = name
+        self.children = []     
+        self.accounts = []     
+ 
+    def add_child(self, branch):
+        self.children.append(branch)
+        return branch          
+ 
+    def add_account(self, account):
+        self.accounts.append(account)
+ 
+    def total_balance(self):
+        total = sum(a.balance for a in self.accounts)   # this node's own accounts
+        for child in self.children:                     # recurse into each sub-branch
+            total += child.total_balance()
+        return total
+ 
+    def print_tree(self, depth=0):
+        indent = "  " * depth
+        print(f"{indent}{self.name}  (subtotal: {self.total_balance()} ETB)")
+        for acc in self.accounts:
+            print(f"{indent}  - {acc.owner} ({acc.account_number}): {acc.balance} ETB")
+        for child in self.children:
+            child.print_tree(depth + 1)
+ 
+ 
+def bfs(transfers, start):
+    visited = set()
+    order = []             
+    queue = [start]
+    visited.add(start)
+ 
+    while queue:
+        current = queue.pop(0)   
+        order.append(current)
+        for neighbor in transfers.get(current, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+ 
+    return order
+
+
+head = Branch("Head Office")
+mekelle = Branch("Mekelle Branch")
+addis = Branch("Addis Branch")
+
+head.add_child(mekelle)
+mekelle.add_child(addis)
+
+acc1 = AccountFactory.create("savings", "Beza", "CBE-1", 10000)
+acc2 = AccountFactory.create("current", "Helen", "CBE-2", 9000)
+acc3 = AccountFactory.create("savings", "Firtuna", "CBE-3", 6000)
+
+head.add_account(acc1)
+mekelle.add_account(acc2)
+addis.add_account(acc3)
+
+
+transfers = {
+    "CBE-1": ["CBE-2", "CBE-3"],
+    "CBE-2": ["CBE-3"],
+    "CBE-3": []
+}
+
+print("Total Bank Balance:", head.total_balance())
+print("Reachable from CBE-1:", bfs(transfers, "CBE-1"))
