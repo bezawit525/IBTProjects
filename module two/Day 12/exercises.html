@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Forms, Tables and Accessibility</title>
+    <meta name="description"  content=" an accessible Ethio Telecom registration form, a marked-up Ethiopian Airlines flight table, a labelled media block, and fixes for three common accessibility bugs">
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Main navigation">
+        <a href="#registration">Ethio Telecom Registration Form</a><br>
+        <a href="#flights">Ethiopian Airlines Flight Table </a><br>
+        <a href="#media">Media Block </a>
+        <a href="#accessibility">Accessibility</a>
+      </nav>
+    </header>
+    <main>
+        <!-- Ethio Telecom Registration Form -->
+        <section id="registration">
+            <h2>Ethio Telecom Registration Form</h2>
+            <label for="name">Full Name:</label>
+            <input id="name" name="name" type="text" required> <br>
+            <label for="email"> Email Address:</label>
+            <input id="email" name="email" type="text" required><br>
+            <label for="phone" >Phone Number:</label>
+            <input id="phone" name="phone" type="tel" pattern="^\+251[0-9]{9}$" required><br>
+            <label for="branch">Branch</label>
+            <select id="branch" name="branch" required>
+                <option value="bole">Bole</option>
+                <option value="kazanchis">Kazanchis</option>
+                <option value="piassa">Piassa</option>
+            </select><br>
+            <button type="submit">Register</button>
+        </section>
+
+        <!-- Ethiopian Airlines Flight Table -->
+        <section id="flights">
+            <h2>Ethiopian Airlines Flights Table</h2>
+            <table>
+                <caption>Ethiopian Airlines flight schedule</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Flight</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Departs</th>
+                        <th scope="col">Price ETB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ET 205</td>
+                        <td>Addis Ababa</td>
+                        <td> Mekelle</td>
+                        <td>10:00 Am</td>
+                        <td>8500</td> 
+                    </tr>
+                       <tr>
+                        <td>ET 207</td>
+                        <td>Addis Ababa</td>
+                        <td> Bahir Dar</td>
+                        <td>12:00 Am</td>
+                        <td>7500</td> 
+                    </tr>
+                       <tr>
+                        <td>ET 211</td>
+                        <td>Addis Ababa</td>
+                        <td>Dire Dawa</td>
+                        <td>5:00 pm</td>
+                        <td>5000</td> 
+                    </tr>
+                       <tr>
+                        <td>ET 205</td>
+                        <td>Addis Ababa</td>
+                        <td>Hawassa</td>
+                        <td>4:30pm</td>
+                        <td>5000</td> 
+                    </tr>
+                       <tr>
+                        <td>ET 205</td>
+                        <td>Addis Ababa</td>
+                        <td>Gondar</td>
+                        <td>6:00 pm</td>
+                        <td>8000</td> 
+                    </tr>
+                </tbody>
+            </table>
+            </section>
+        <!-- Media block-->
+     <section id="media">
+  <h2>Ethiopian Landmark</h2>
+
+  <figure>
+  <img
+  src="https://nomadicsamuel.com/wp-content/uploads/entoto-mountain-scenic-views-day-trip-from-addis-ababa.jpg"
+  alt="View of Mount Entoto in Addis Ababa"
+  width="400"
+>
+
+    <figcaption>
+      View of the Entoto Mountains in Addis Ababa, Ethiopia.
+    </figcaption>
+  </figure>
+
+  <h3>Addis Ababa Map</h3>
+
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=38.72%2C8.96%2C38.78%2C9.05&amp;layer=mapnik"
+    width="600"
+    height="200"
+    title="Map of Addis Ababa, Ethiopia"
+    loading="lazy">
+  </iframe>
+</section>
+<!-- Fixing Inaccessible Html -->
+<section id="accessibility">
+    <h2>Accessibility Fixes</h2>
+<!--1 inaccesible :
+<div onclick="submitForm()">submit</div>
+    fix:
+use <button> instead of <div> . 
+button can be reached with the Tab key and activated with Enter and Space.
+Screen readers also identify it as a button-->
+    <button type="button">submit</button>
+<!-- 2 inaccesible :
+ <input type="text">
+ fix:
+add a <label> and connect it to the input using for="username" and id="username". 
+this gives screen reader users a name for the input and allows users to click the label to focus the input.-->
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+ <!-- 3 inaccesible:
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Injera.jpg"
+    FIX:
+    add a meaningful alt text.
+    screen readers can read the alt text to users who cannot see the image.
+    It also provides information if the image can not load -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Injera.jpg" alt="Traditional Ethiopian injera served with doro wat"
+
+</section>
+    </main>
+    </main>
+  </body>
+</html>
