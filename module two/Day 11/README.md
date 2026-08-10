@@ -8,37 +8,37 @@ This repository contains my **IBT College Canada CodeOps Module 2 Day 11** work,
 
 Created a basic HTML webpage practicing:
 
-* HTML5 boilerplate
-* Headings and paragraphs
-* Strong and emphasized text
-* Images with alt text
-* Ordered and unordered lists
-* Navigation links
-* Relative and absolute links
+- HTML5 boilerplate
+- Headings and paragraphs
+- Strong and emphasized text
+- Images with alt text
+- Ordered and unordered lists
+- Navigation links
+- Relative and absolute links
 
 Files:
 
-* `hello.html`
-* `page2.html`
+- `hello.html`
+- `page2.html`
 
 ## Project: Habesha Market Homepage
 
 Built a semantic HTML homepage for Habesha Market using:
 
-* `<header>` with title and navigation
-* `<main>` with products section and about article
-* `<footer>` with location and contact information
+- `<header>` with title and navigation
+- `<main>` with products section and about article
+- `<footer>` with location and contact information
 
 File:
 
-* `index.html`
+- `index.html`
 
 ## Technologies
 
-* HTML5
-* Visual Studio Code
-* Git & GitHub
+- HTML5
+- Visual Studio Code
+- Git & GitHub
 
 ## Author
 
-Beza Hayalu
+Bezawit Hayalu
