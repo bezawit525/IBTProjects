@@ -1,0 +1,98 @@
+:root {
+  --brand: hsl(25, 55%, 30%);
+  --brand-hover: hsl(25, 55%, 40%);
+  --background: hsl(35, 30%, 94%);
+  --card-background: hsl(0, 0%, 100%);
+  --text: hsl(20, 15%, 20%);
+  --muted-text: hsl(20, 10%, 40%);
+  --border: hsl(25, 20%, 80%);
+
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Karla", sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  margin: var(--space-xl) auto;
+  padding: var(--space-xl);
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  margin-bottom: var(--space-lg);
+  background: var(--brand);
+  border-radius: var(--radius);
+}
+
+.location {
+  margin: 0 0 var(--space-sm);
+  color: var(--muted-text);
+  font-size: 0.9rem;
+}
+
+h1 {
+  margin: 0 0 var(--space-sm);
+  color: var(--brand);
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.tagline {
+  margin: 0 0 var(--space-lg);
+  color: var(--brand);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.description {
+  margin: 0 0 var(--space-lg);
+  color: var(--text);
+}
+
+.details {
+  margin: 0 0 var(--space-lg);
+  color: var(--muted-text);
+}
+
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--brand);
+  color: white;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: var(--brand-hover);
+}

@@ -1,9 +1,7 @@
-/* Global reset */
 * {
   box-sizing: border-box;
 }
 
-/* Color variables */
 :root {
   --primary-color: #7a3e2b;
   --secondary-color: #f3e8d2;
@@ -13,7 +11,6 @@
   --border-color: #d8c3a5;
 }
 
-/* Base font and line-height */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -23,7 +20,6 @@ body {
   padding: 2rem;
 }
 
-/* Menu card */
 .menu-card {
   max-width: 850px;
   margin: 2rem auto;
@@ -34,7 +30,6 @@ body {
   border-radius: 10px;
 }
 
-/* Menu heading */
 .menu-card h2 {
   color: var(--primary-color);
   text-align: center;
@@ -42,20 +37,17 @@ body {
   font-size: 2rem;
 }
 
-/* Table */
 .menu-card table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* Caption */
 .menu-card caption {
   color: var(--primary-color);
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
-/* Table cells */
 .menu-card th,
 .menu-card td {
   padding: 1rem;
@@ -63,24 +55,20 @@ body {
   text-align: left;
 }
 
-/* Table header */
 .menu-card thead {
   background-color: var(--primary-color);
   color: var(--card-background);
 }
 
-/* Price */
 .price {
   font-weight: bold;
   color: var(--primary-color);
 }
 
-/* Add ETB before price */
 .price::before {
   content: "ETB ";
 }
 
-/* Ingredients */
 .ingredients {
   display: flex;
   gap: 0.5rem;
@@ -89,17 +77,14 @@ body {
   padding: 0;
 }
 
-/* Individual ingredients */
 .ingredients li {
   padding: 0.25rem 0.5rem;
 }
 
-/* Zebra stripe every second ingredient */
 .ingredients li:nth-child(even) {
   background-color: var(--secondary-color);
 }
 
-/* Hover effect */
 .menu-card:hover {
   box-shadow: 0 8px 16px var(--border-color);
 }
