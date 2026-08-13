@@ -5,4 +5,4 @@ export default function format(amount) {
 }
 
 export const total = (order) =>
-  order.item.reduce((sum, { price, qty }) => sum + price * qty, 0);
+  order.items.reduce((sum, { price, qty }) => sum + price * qty, 0);
