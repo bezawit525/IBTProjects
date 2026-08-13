@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Addis Market shopping list</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Addis Market</h1>
+      <p class="description">shopping List</p>
+      <form id="itemForm">
+        <label for="itemName">Grocery item</label>
+        <div class="form-row">
+          <input type="text" name="text" id="itemName" placeholder="soap" />
+          <button type="submit">Add</button>
+        </div>
+        <small id="message"></small>
+      </form>
+      <section class="list-section">
+        <h2 id="remaining">0 items remaining</h2>
+        <ul id="itemsList"></ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
