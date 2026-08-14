@@ -11,16 +11,16 @@ The work practices selecting and changing DOM elements, creating elements with J
 ```text
 day19/
 │
-├── exercise.html          # Day 19 core DOM & Events exercises
+         # Day 19 core DOM & Events exercises
 ├── exercise.css
 ├── exercise.js
 │
-├── addis-market/           # Addis Market - first version (in-class exercise)
+          # Addis Market - first version (in-class exercise)
 │   ├── index.html
 │   ├── style.css
 │   └── app.js
 │
-├── addis-market-week2/     # Addis Market - mini project 2 version (with prices in ETB)
+    # Addis Market - project 2 version (with prices in ETB)
 │   ├── market.html
 │   ├── market.css
 │   └── market.js
@@ -75,7 +75,7 @@ A simple single-page shopping list app using the **state-then-render loop**.
 - Use event delegation for list button clicks
 - Use a CSS class for the bought state
 
-### Version 2 Project (`addis-market-mini project/`)
+### Version 2 Project (`addis-market-project/`)
 
 An extended version of Addis Market that adds item prices in ETB and a running total.
 
