@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #222;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  margin-top: 0;
+  color: #666;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 7px;
+  background: #222;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+}
+
+#facts {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  min-height: 150px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.country-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.country-header h2 {
+  margin: 15px 0 0;
+}
+
+.flag {
+  width: 180px;
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.fact-list {
+  display: grid;
+  gap: 12px;
+}
+
+.fact {
+  padding: 14px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.fact strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.loading {
+  text-align: center;
+  font-weight: bold;
+}
+
+.error {
+  text-align: center;
+  color: #b00020;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .hero,
+  #facts {
+    padding: 20px;
+  }
+}

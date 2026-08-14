@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Search for country facts including capital, population, region, currencies and flag."
+    />
+    <title>Country Facts</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="hero">
+        <h1>Country Facts</h1>
+        <p>Search for a country to see its basic facts.</p>
+
+        <form id="searchForm">
+          <label for="countryInput">Country name</label>
+
+          <div class="search-box">
+            <input
+              type="text"
+              id="countryInput"
+              name="country"
+              placeholder="Enter a country"
+              autocomplete="off"
+            />
+            <button type="submit">Search</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="facts" aria-live="polite">
+        <p class="loading">Loading...</p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
