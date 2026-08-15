@@ -3,16 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Validated Signup Form</title>
+    <title>Signup Form</title>
   </head>
   <body>
+    <button id="themeToggle">Toggle Theme</button>
+
     <h1>Signup Form</h1>
 
-    <form id="signupForm">
-      <label for="name">Full Name:</label>
+    <p id="count"></p>
+
+    <form id="signup">
+      <label for="name">Name:</label>
       <input type="text" id="name" name="name" />
 
-      <label for="phone">Phone Number:</label>
+      <label for="phone">Phone:</label>
       <input type="tel" id="phone" name="phone" />
 
       <button type="submit">Sign Up</button>
@@ -20,10 +24,6 @@
       <p id="error"></p>
     </form>
 
-    <h2>Registered People</h2>
-
-    <ul id="signupList"></ul>
-
-    <script src="app.js"></script>
+    <script src="exercise.js"></script>
   </body>
 </html>
