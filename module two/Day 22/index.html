@@ -4,16 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <h1>Birr Watch</h1>
     <p id="status">Loading rates...</p>
-    <from id="convert-form">
+    <form id="convert-form">
+      <label for="amount">Amount in ETB </label>
       <input id="amount" type="number" value="100" />
+      <label for="currency">Currency </label>
       <select id="currency"></select>
-      <button id="watch">Convert</button>
-    </from>
+      <button type="submit">Convert</button>
+    </form>
     <p id="result"></p>
+    <butotn id="watch" type="button">Add to Watchlist</butotn>
     <h2>WatchList</h2>
     <ul id="watchlist"></ul>
     <script src="app.js"></script>
