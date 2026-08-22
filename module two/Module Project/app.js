@@ -548,8 +548,8 @@ const state = {
   activities: ACTIVITIES,
   reviews: load("ee_reviews", INITIAL_REVIEWS),
 
-  favorites: load("ee_favorites", []), // array of destination ids
-  tripPlan: load("ee_tripPlan", []), // array of { tripId, type, refId, name, price }
+  favorites: load("ee_favorites", []),
+  tripPlan: load("ee_tripPlan", []),
 
   searchTerm: "",
   category: "all",
@@ -640,6 +640,7 @@ function renderStatus() {
       <div class="status-box loading">Loading Ethiopian travel information…</div>`;
     return;
   }
+
   if (state.error) {
     el.statusBanner.className = "status-banner visible";
     el.statusBanner.innerHTML = `
@@ -649,20 +650,24 @@ function renderStatus() {
       </div>`;
     return;
   }
+
   el.statusBanner.className = "status-banner";
   el.statusBanner.innerHTML = "";
 }
 
 function getFilteredDestinations() {
   const term = state.searchTerm.trim().toLowerCase();
+
   return state.destinations.filter((d) => {
     const matchesCategory =
       state.category === "all" || d.category === state.category;
+
     const matchesSearch =
       term === "" ||
       d.name.toLowerCase().includes(term) ||
       d.region.toLowerCase().includes(term) ||
       d.category.toLowerCase().includes(term);
+
     return matchesCategory && matchesSearch;
   });
 }
@@ -682,31 +687,76 @@ function renderDestinations() {
   el.destinationsGrid.innerHTML = shown
     .map((d) => {
       const isFav = state.favorites.includes(d.id);
+
       const inTrip = state.tripPlan.some(
         (t) => t.type === "destination" && t.refId === d.id,
       );
+
       return `
       <article class="card" data-id="${d.id}">
         <div class="card-img-wrap">
-          <img src="${imgUrl(d.image, 400, 300)}" alt="${escapeHtml(d.name)}" loading="lazy" />
-          <button type="button" class="fav-btn ${isFav ? "active" : ""}"
-            data-action="toggle-favorite" data-id="${d.id}"
-            aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}">
-            ${isFav ? "❤" : "🤍"}
+          <img
+            src="${imgUrl(d.image, 400, 300)}"
+            alt="${escapeHtml(d.name)}"
+            loading="lazy"
+          />
+
+          <!-- FAVORITE HEART -->
+          <button
+            type="button"
+            class="fav-btn ${isFav ? "active" : ""}"
+            data-action="toggle-favorite"
+            data-id="${d.id}"
+            aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}"
+          >
+            ${isFav ? "❤️" : "🤍"}
           </button>
-          <span class="card-category">${escapeHtml(d.category)}</span>
+
+          <span class="card-category">
+            ${escapeHtml(d.category)}
+          </span>
         </div>
+
         <div class="card-body">
           <h3>${escapeHtml(d.name)}</h3>
-          <p class="card-location">${escapeHtml(d.region)}</p>
-          <p class="card-desc">${escapeHtml(d.description)}</p>
+
+          <p class="card-location">
+            ${escapeHtml(d.region)}
+          </p>
+
+          <p class="card-desc">
+            ${escapeHtml(d.description)}
+          </p>
+
           <div class="card-meta">
-            <span class="rating">${starsDisplay(d.rating)} <span>${d.rating}</span></span>
-            <span class="price-tag">${escapeHtml(d.price)}</span>
+            <span class="rating">
+              ${starsDisplay(d.rating)}
+              <span>${d.rating}</span>
+            </span>
+
+            <span class="price-tag">
+              ${escapeHtml(d.price)}
+            </span>
           </div>
+
           <div class="card-actions">
-            <button type="button" class="btn-secondary" data-action="view-details" data-id="${d.id}">View Details</button>
-            <button type="button" class="btn-primary" data-action="add-trip" data-type="destination" data-id="${d.id}" ${inTrip ? "disabled" : ""}>
+            <button
+              type="button"
+              class="btn-secondary"
+              data-action="view-details"
+              data-id="${d.id}"
+            >
+              View Details
+            </button>
+
+            <button
+              type="button"
+              class="btn-primary"
+              data-action="add-trip"
+              data-type="destination"
+              data-id="${d.id}"
+              ${inTrip ? "disabled" : ""}
+            >
               ${inTrip ? "Added ✓" : "Add to Trip"}
             </button>
           </div>
@@ -722,24 +772,66 @@ function renderHotels() {
       const inTrip = state.tripPlan.some(
         (t) => t.type === "hotel" && t.refId === h.id,
       );
+
       return `
       <article class="card" data-id="${h.id}">
         <div class="card-img-wrap">
-          <img src="${imgUrl(h.image, 400, 300)}" alt="${escapeHtml(h.name)}" loading="lazy" />
-          <span class="card-category">${escapeHtml(h.city)}</span>
+          <img
+            src="${imgUrl(h.image, 400, 300)}"
+            alt="${escapeHtml(h.name)}"
+            loading="lazy"
+          />
+
+          <span class="card-category">
+            ${escapeHtml(h.city)}
+          </span>
         </div>
+
         <div class="card-body">
           <h3>${escapeHtml(h.name)}</h3>
-          <p class="card-location">${escapeHtml(h.city)}</p>
-          <p class="card-desc">${escapeHtml(h.description)}</p>
-          <p class="card-desc"><strong>Amenities:</strong> ${h.amenities.map(escapeHtml).join(", ")}</p>
+
+          <p class="card-location">
+            ${escapeHtml(h.city)}
+          </p>
+
+          <p class="card-desc">
+            ${escapeHtml(h.description)}
+          </p>
+
+          <p class="card-desc">
+            <strong>Amenities:</strong>
+            ${h.amenities.map(escapeHtml).join(", ")}
+          </p>
+
           <div class="card-meta">
-            <span class="rating">${starsDisplay(h.rating)} <span>${h.rating}</span></span>
-            <span class="price-tag">${h.pricePerNight} ETB/night</span>
+            <span class="rating">
+              ${starsDisplay(h.rating)}
+              <span>${h.rating}</span>
+            </span>
+
+            <span class="price-tag">
+              ${h.pricePerNight} ETB/night
+            </span>
           </div>
+
           <div class="card-actions">
-            <button type="button" class="btn-secondary" data-action="view-hotel" data-id="${h.id}">View Hotel</button>
-            <button type="button" class="btn-primary" data-action="add-trip" data-type="hotel" data-id="${h.id}" ${inTrip ? "disabled" : ""}>
+            <button
+              type="button"
+              class="btn-secondary"
+              data-action="view-hotel"
+              data-id="${h.id}"
+            >
+              View Hotel
+            </button>
+
+            <button
+              type="button"
+              class="btn-primary"
+              data-action="add-trip"
+              data-type="hotel"
+              data-id="${h.id}"
+              ${inTrip ? "disabled" : ""}
+            >
               ${inTrip ? "Added ✓" : "Add to Trip"}
             </button>
           </div>
@@ -755,23 +847,61 @@ function renderRestaurants() {
       const inTrip = state.tripPlan.some(
         (t) => t.type === "restaurant" && t.refId === r.id,
       );
+
       return `
       <article class="card" data-id="${r.id}">
         <div class="card-img-wrap">
-          <img src="${imgUrl(r.image, 400, 300)}" alt="${escapeHtml(r.name)}" loading="lazy" />
-          <span class="card-category">${escapeHtml(r.cuisine)}</span>
+          <img
+            src="${imgUrl(r.image, 400, 300)}"
+            alt="${escapeHtml(r.name)}"
+            loading="lazy"
+          />
+
+          <span class="card-category">
+            ${escapeHtml(r.cuisine)}
+          </span>
         </div>
+
         <div class="card-body">
           <h3>${escapeHtml(r.name)}</h3>
-          <p class="card-location">${escapeHtml(r.city)}</p>
-          <p class="card-desc">${escapeHtml(r.description)}</p>
+
+          <p class="card-location">
+            ${escapeHtml(r.city)}
+          </p>
+
+          <p class="card-desc">
+            ${escapeHtml(r.description)}
+          </p>
+
           <div class="card-meta">
-            <span class="rating">${starsDisplay(r.rating)} <span>${r.rating}</span></span>
-            <span class="price-tag">${escapeHtml(r.priceRange)}</span>
+            <span class="rating">
+              ${starsDisplay(r.rating)}
+              <span>${r.rating}</span>
+            </span>
+
+            <span class="price-tag">
+              ${escapeHtml(r.priceRange)}
+            </span>
           </div>
+
           <div class="card-actions">
-            <button type="button" class="btn-secondary" data-action="view-restaurant" data-id="${r.id}">View Restaurant</button>
-            <button type="button" class="btn-primary" data-action="add-trip" data-type="restaurant" data-id="${r.id}" ${inTrip ? "disabled" : ""}>
+            <button
+              type="button"
+              class="btn-secondary"
+              data-action="view-restaurant"
+              data-id="${r.id}"
+            >
+              View Restaurant
+            </button>
+
+            <button
+              type="button"
+              class="btn-primary"
+              data-action="add-trip"
+              data-type="restaurant"
+              data-id="${r.id}"
+              ${inTrip ? "disabled" : ""}
+            >
               ${inTrip ? "Added ✓" : "Add to Trip"}
             </button>
           </div>
@@ -787,23 +917,62 @@ function renderGuides() {
       const inTrip = state.tripPlan.some(
         (t) => t.type === "guide" && t.refId === g.id,
       );
+
       return `
       <article class="card" data-id="${g.id}">
         <div class="card-img-wrap">
-          <img src="${imgUrl(g.image, 400, 300)}" alt="Portrait of ${escapeHtml(g.name)}" loading="lazy" />
-          <span class="card-category">${escapeHtml(g.specialization)}</span>
+          <img
+            src="${imgUrl(g.image, 400, 300)}"
+            alt="Portrait of ${escapeHtml(g.name)}"
+            loading="lazy"
+          />
+
+          <span class="card-category">
+            ${escapeHtml(g.specialization)}
+          </span>
         </div>
+
         <div class="card-body">
           <h3>${escapeHtml(g.name)}</h3>
-          <p class="card-location">${escapeHtml(g.location)} · ${g.experience} yrs experience</p>
-          <p class="card-desc"><strong>Languages:</strong> ${g.languages.map(escapeHtml).join(", ")}</p>
+
+          <p class="card-location">
+            ${escapeHtml(g.location)} · ${g.experience} yrs experience
+          </p>
+
+          <p class="card-desc">
+            <strong>Languages:</strong>
+            ${g.languages.map(escapeHtml).join(", ")}
+          </p>
+
           <div class="card-meta">
-            <span class="rating">${starsDisplay(g.rating)} <span>${g.rating}</span></span>
-            <span class="price-tag">${g.pricePerDay} ETB/day</span>
+            <span class="rating">
+              ${starsDisplay(g.rating)}
+              <span>${g.rating}</span>
+            </span>
+
+            <span class="price-tag">
+              ${g.pricePerDay} ETB/day
+            </span>
           </div>
+
           <div class="card-actions">
-            <button type="button" class="btn-secondary" data-action="view-guide" data-id="${g.id}">View Profile</button>
-            <button type="button" class="btn-primary" data-action="add-trip" data-type="guide" data-id="${g.id}" ${inTrip ? "disabled" : ""}>
+            <button
+              type="button"
+              class="btn-secondary"
+              data-action="view-guide"
+              data-id="${g.id}"
+            >
+              View Profile
+            </button>
+
+            <button
+              type="button"
+              class="btn-primary"
+              data-action="add-trip"
+              data-type="guide"
+              data-id="${g.id}"
+              ${inTrip ? "disabled" : ""}
+            >
               ${inTrip ? "Added ✓" : "Add to Trip"}
             </button>
           </div>
@@ -820,8 +989,13 @@ function renderTransportation() {
     <div class="transport-card">
       <h3>${escapeHtml(t.type)}</h3>
       <p>${escapeHtml(t.description)}</p>
-      <p><strong>Where:</strong> ${escapeHtml(t.location)}</p>
-      <p class="t-price">${escapeHtml(t.price)}</p>
+      <p>
+        <strong>Where:</strong>
+        ${escapeHtml(t.location)}
+      </p>
+      <p class="t-price">
+        ${escapeHtml(t.price)}
+      </p>
     </div>`,
     )
     .join("");
@@ -833,22 +1007,53 @@ function renderActivities() {
       const inTrip = state.tripPlan.some(
         (t) => t.type === "activity" && t.refId === a.id,
       );
+
       return `
       <article class="card" data-id="${a.id}">
         <div class="card-img-wrap">
-          <img src="${imgUrl(a.image, 400, 300)}" alt="${escapeHtml(a.name)}" loading="lazy" />
-          <span class="card-category">${escapeHtml(a.category)}</span>
+          <img
+            src="${imgUrl(a.image, 400, 300)}"
+            alt="${escapeHtml(a.name)}"
+            loading="lazy"
+          />
+
+          <span class="card-category">
+            ${escapeHtml(a.category)}
+          </span>
         </div>
+
         <div class="card-body">
           <h3>${escapeHtml(a.name)}</h3>
-          <p class="card-location">${escapeHtml(a.location)} · ${escapeHtml(a.duration)}</p>
-          <p class="card-desc">${escapeHtml(a.description)}</p>
+
+          <p class="card-location">
+            ${escapeHtml(a.location)} · ${escapeHtml(a.duration)}
+          </p>
+
+          <p class="card-desc">
+            ${escapeHtml(a.description)}
+          </p>
+
           <div class="card-meta">
-            <span class="rating">${starsDisplay(a.rating)} <span>${a.rating}</span></span>
-            <span class="price-tag">${a.price} ETB</span>
+            <span class="rating">
+              ${starsDisplay(a.rating)}
+              <span>${a.rating}</span>
+            </span>
+
+            <span class="price-tag">
+              ${a.price} ETB
+            </span>
           </div>
+
           <div class="card-actions">
-            <button type="button" class="btn-primary" data-action="add-trip" data-type="activity" data-id="${a.id}" ${inTrip ? "disabled" : ""} style="flex:1">
+            <button
+              type="button"
+              class="btn-primary"
+              data-action="add-trip"
+              data-type="activity"
+              data-id="${a.id}"
+              ${inTrip ? "disabled" : ""}
+              style="flex:1"
+            >
               ${inTrip ? "Added ✓" : "Add to Trip"}
             </button>
           </div>
@@ -859,41 +1064,66 @@ function renderActivities() {
 }
 
 function renderMap() {
-  // populate <select> once (or if options mismatch), then keep it in sync with state
   if (el.mapSelect.options.length !== state.destinations.length) {
     el.mapSelect.innerHTML = state.destinations
       .map((d) => `<option value="${d.id}">${escapeHtml(d.name)}</option>`)
       .join("");
   }
+
   el.mapSelect.value = state.selectedMapId;
 
   const dest = findDestination(state.selectedMapId);
+
   if (dest) {
     el.mapInfo.innerHTML = `
       <h4>${escapeHtml(dest.name)}</h4>
-      <p><strong>Region:</strong> ${escapeHtml(dest.region)}</p>
-      <p><strong>Category:</strong> ${escapeHtml(dest.category)}</p>
-      <p><strong>Rating:</strong> ${starsDisplay(dest.rating)} (${dest.rating})</p>
-      <p>${escapeHtml(dest.description)}</p>`;
+
+      <p>
+        <strong>Region:</strong>
+        ${escapeHtml(dest.region)}
+      </p>
+
+      <p>
+        <strong>Category:</strong>
+        ${escapeHtml(dest.category)}
+      </p>
+
+      <p>
+        <strong>Rating:</strong>
+        ${starsDisplay(dest.rating)} (${dest.rating})
+      </p>
+
+      <p>
+        ${escapeHtml(dest.description)}
+      </p>`;
   }
 
   el.mapVisual.innerHTML = state.destinations
     .map((d) => {
-      const coords = MAP_COORDS[d.id] || { top: "50%", left: "50%" };
+      const coords = MAP_COORDS[d.id] || {
+        top: "50%",
+        left: "50%",
+      };
+
       const selected = d.id === state.selectedMapId;
+
       return `
-      <button type="button" class="map-pin ${selected ? "selected" : ""}"
+      <button
+        type="button"
+        class="map-pin ${selected ? "selected" : ""}"
         style="top:${coords.top}; left:${coords.left};"
-        data-action="select-map" data-id="${d.id}"
-        aria-label="Show ${escapeHtml(d.name)} on map">
-        📍<span>${escapeHtml(d.name)}</span>
+        data-action="select-map"
+        data-id="${d.id}"
+        aria-label="Show ${escapeHtml(d.name)} on map"
+      >
+        📍
+        <span>${escapeHtml(d.name)}</span>
       </button>`;
     })
     .join("");
 }
 
 function renderReviews() {
-  // keep the destination <select> in the review form populated
   if (el.reviewDestination.options.length !== state.destinations.length) {
     el.reviewDestination.innerHTML = state.destinations
       .map(
@@ -904,7 +1134,11 @@ function renderReviews() {
   }
 
   if (state.reviews.length === 0) {
-    el.reviewsList.innerHTML = `<div class="empty-state"><strong>No reviews yet.</strong> Be the first to share your experience.</div>`;
+    el.reviewsList.innerHTML = `
+      <div class="empty-state">
+        <strong>No reviews yet.</strong>
+        Be the first to share your experience.
+      </div>`;
     return;
   }
 
@@ -918,11 +1152,22 @@ function renderReviews() {
     <div class="review-card">
       <div class="review-card-head">
         <strong>${escapeHtml(r.name)}</strong>
-        <span class="review-date">${escapeHtml(r.date)}</span>
+        <span class="review-date">
+          ${escapeHtml(r.date)}
+        </span>
       </div>
-      <p class="review-dest">${escapeHtml(r.destination)}</p>
-      <p class="review-stars">${starsDisplay(r.rating)}</p>
-      <p class="review-comment">${escapeHtml(r.comment)}</p>
+
+      <p class="review-dest">
+        ${escapeHtml(r.destination)}
+      </p>
+
+      <p class="review-stars">
+        ${starsDisplay(r.rating)}
+      </p>
+
+      <p class="review-comment">
+        ${escapeHtml(r.comment)}
+      </p>
     </div>`,
     )
     .join("");
@@ -940,7 +1185,8 @@ function renderTripPlan() {
     el.tripPlanList.innerHTML = `
       <div class="empty-state">
         <strong>Your trip plan is empty.</strong>
-        Browse destinations, hotels, restaurants, or activities and click "Add to Trip".
+        Browse destinations, hotels, restaurants, or activities
+        and click "Add to Trip".
       </div>`;
   } else {
     el.tripPlanList.innerHTML = state.tripPlan
@@ -949,10 +1195,23 @@ function renderTripPlan() {
       <div class="trip-item" data-trip-id="${item.tripId}">
         <div class="trip-item-info">
           <strong>${escapeHtml(item.name)}</strong>
-          <span class="trip-item-type">${escapeHtml(item.type)}</span>
+          <span class="trip-item-type">
+            ${escapeHtml(item.type)}
+          </span>
         </div>
-        <div class="trip-item-price">${item.price ? item.price + " ETB" : "—"}</div>
-        <button type="button" class="remove-btn" data-action="remove-trip" data-trip-id="${item.tripId}">Remove</button>
+
+        <div class="trip-item-price">
+          ${item.price ? item.price + " ETB" : "—"}
+        </div>
+
+        <button
+          type="button"
+          class="remove-btn"
+          data-action="remove-trip"
+          data-trip-id="${item.tripId}"
+        >
+          Remove
+        </button>
       </div>`,
       )
       .join("");
@@ -981,18 +1240,50 @@ function renderFavorites() {
       (d) => `
     <article class="card" data-id="${d.id}">
       <div class="card-img-wrap">
-        <img src="${imgUrl(d.image, 400, 300)}" alt="${escapeHtml(d.name)}" loading="lazy" />
-        <button type="button" class="fav-btn active" data-action="toggle-favorite" data-id="${d.id}" aria-label="Remove from favorites">❤</button>
-        <span class="card-category">${escapeHtml(d.category)}</span>
+        <img
+          src="${imgUrl(d.image, 400, 300)}"
+          alt="${escapeHtml(d.name)}"
+          loading="lazy"
+        />
+
+        <button
+          type="button"
+          class="fav-btn active"
+          data-action="toggle-favorite"
+          data-id="${d.id}"
+          aria-label="Remove from favorites"
+        >
+          ❤️
+        </button>
+
+        <span class="card-category">
+          ${escapeHtml(d.category)}
+        </span>
       </div>
+
       <div class="card-body">
         <h3>${escapeHtml(d.name)}</h3>
-        <p class="card-location">${escapeHtml(d.region)}</p>
+
+        <p class="card-location">
+          ${escapeHtml(d.region)}
+        </p>
+
         <div class="card-meta">
-          <span class="rating">${starsDisplay(d.rating)} <span>${d.rating}</span></span>
+          <span class="rating">
+            ${starsDisplay(d.rating)}
+            <span>${d.rating}</span>
+          </span>
         </div>
+
         <div class="card-actions">
-          <button type="button" class="btn-secondary" data-action="view-details" data-id="${d.id}">View Details</button>
+          <button
+            type="button"
+            class="btn-secondary"
+            data-action="view-details"
+            data-id="${d.id}"
+          >
+            View Details
+          </button>
         </div>
       </div>
     </article>`,
@@ -1013,6 +1304,7 @@ function renderModal() {
   }
 
   const d = findDestination(state.modalDestinationId);
+
   if (!d) {
     el.modalOverlay.classList.add("hidden");
     return;
@@ -1021,25 +1313,64 @@ function renderModal() {
   const inTrip = state.tripPlan.some(
     (t) => t.type === "destination" && t.refId === d.id,
   );
+
   const isFav = state.favorites.includes(d.id);
 
   el.modalContent.innerHTML = `
-    <img class="modal-img" src="${imgUrl(d.image, 700, 400)}" alt="${escapeHtml(d.name)}" />
+    <img
+      class="modal-img"
+      src="${imgUrl(d.image, 700, 400)}"
+      alt="${escapeHtml(d.name)}"
+    />
+
     <div class="modal-body">
-      <h2 id="modalTitle">${escapeHtml(d.name)}</h2>
-      <p class="card-location">${escapeHtml(d.region)} · ${escapeHtml(d.category)}</p>
+      <h2 id="modalTitle">
+        ${escapeHtml(d.name)}
+      </h2>
+
+      <p class="card-location">
+        ${escapeHtml(d.region)} ·
+        ${escapeHtml(d.category)}
+      </p>
+
       <div class="card-meta">
-        <span class="rating">${starsDisplay(d.rating)} <span>${d.rating}</span></span>
-        <span class="price-tag">${escapeHtml(d.price)}</span>
+        <span class="rating">
+          ${starsDisplay(d.rating)}
+          <span>${d.rating}</span>
+        </span>
+
+        <span class="price-tag">
+          ${escapeHtml(d.price)}
+        </span>
       </div>
-      <p class="card-desc">${escapeHtml(d.description)}</p>
+
+      <p class="card-desc">
+        ${escapeHtml(d.description)}
+      </p>
+
       <div class="card-actions">
-        <button type="button" class="btn-secondary" data-action="toggle-favorite" data-id="${d.id}">
-          ${isFav ? "❤ Remove Favorite" : "🤍 Add to Favorites"}
+
+        <!-- FAVORITE BUTTON IN MODAL -->
+        <button
+          type="button"
+          class="btn-secondary"
+          data-action="toggle-favorite"
+          data-id="${d.id}"
+        >
+          ${isFav ? "❤️ Remove Favorite" : "🤍 Add to Favorites"}
         </button>
-        <button type="button" class="btn-primary" data-action="add-trip" data-type="destination" data-id="${d.id}" ${inTrip ? "disabled" : ""}>
+
+        <button
+          type="button"
+          class="btn-primary"
+          data-action="add-trip"
+          data-type="destination"
+          data-id="${d.id}"
+          ${inTrip ? "disabled" : ""}
+        >
           ${inTrip ? "Added ✓" : "Add to Trip"}
         </button>
+
       </div>
     </div>`;
 
@@ -1050,6 +1381,7 @@ function addToTrip(type, refId) {
   const alreadyIn = state.tripPlan.some(
     (t) => t.type === type && t.refId === refId,
   );
+
   if (alreadyIn) return;
 
   let source, name, price;
@@ -1092,25 +1424,43 @@ function addToTrip(type, refId) {
 
 function removeFromTrip(tripId) {
   state.tripPlan = state.tripPlan.filter((t) => t.tripId !== tripId);
+
   save("ee_tripPlan", state.tripPlan);
   render();
 }
 
+/* ================================
+   FAVORITES
+   ================================ */
+
 function toggleFavorite(destId) {
   if (state.favorites.includes(destId)) {
+    // Remove from favorites
     state.favorites = state.favorites.filter((id) => id !== destId);
   } else {
-    state.favorites.push(destId); // Set-like push avoids duplicates because of the check above
+    // Add to favorites
+    state.favorites.push(destId);
   }
+
+  // Save favorites so they remain after refreshing the page
   save("ee_favorites", state.favorites);
+
+  // Update the page
   render();
-  if (state.modalDestinationId === destId) renderModal();
+
+  // Update the modal if it is currently open
+  if (state.modalDestinationId === destId) {
+    renderModal();
+  }
 }
 
 function validateReviewForm(name, comment, rating) {
   let valid = true;
+
   const nameErrorEl = document.getElementById("reviewNameError");
+
   const commentErrorEl = document.getElementById("reviewCommentError");
+
   const ratingErrorEl = document.getElementById("reviewRatingError");
 
   nameErrorEl.textContent = "";
@@ -1139,11 +1489,15 @@ function submitReview(e) {
   e.preventDefault();
 
   const name = document.getElementById("reviewName").value;
+
   const destination = el.reviewDestination.value;
+
   const comment = document.getElementById("reviewComment").value;
+
   const rating = state.selectedRating;
 
   const isValid = validateReviewForm(name, comment, rating);
+
   if (!isValid) return;
 
   const newReview = {
@@ -1156,16 +1510,21 @@ function submitReview(e) {
   };
 
   state.reviews.push(newReview);
+
   save("ee_reviews", state.reviews);
 
   el.reviewForm.reset();
+
   state.selectedRating = 0;
+
   updateStarButtons();
 
   render();
 
   const successEl = document.getElementById("reviewSuccess");
+
   successEl.textContent = "Thank you! Your review has been posted.";
+
   setTimeout(() => {
     successEl.textContent = "";
   }, 4000);
@@ -1173,8 +1532,10 @@ function submitReview(e) {
 
 function updateStarButtons() {
   const buttons = el.reviewRating.querySelectorAll("button");
+
   buttons.forEach((btn) => {
     const value = Number(btn.dataset.value);
+
     btn.classList.toggle("selected", value <= state.selectedRating);
   });
 }
@@ -1182,7 +1543,9 @@ function updateStarButtons() {
 async function loadCountryFacts() {
   state.loading = true;
   state.error = null;
+
   renderStatus();
+
   el.countryFacts.textContent = "";
 
   try {
@@ -1195,14 +1558,18 @@ async function loadCountryFacts() {
     }
 
     const data = await response.json();
+
     const info = Array.isArray(data) ? data[0] : data;
 
     state.countryFacts = info;
+
     state.loading = false;
     state.error = null;
 
     const capital = info.capital ? info.capital[0] : "Addis Ababa";
+
     const population = info.population ? info.population.toLocaleString() : "—";
+
     const languages = info.languages
       ? Object.values(info.languages).join(", ")
       : "—";
@@ -1212,40 +1579,50 @@ async function loadCountryFacts() {
     renderStatus();
   } catch (error) {
     state.loading = false;
+
     state.error = console.error(error);
+
     renderStatus();
   }
 }
 
 el.navToggle.addEventListener("click", () => {
   const isOpen = el.mainNav.classList.toggle("open");
+
   el.navToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
 el.mainNav.addEventListener("click", (e) => {
   if (e.target.tagName === "A") {
     el.mainNav.classList.remove("open");
+
     el.navToggle.setAttribute("aria-expanded", "false");
   }
 });
 
 el.heroSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
+
   state.searchTerm = el.heroSearchInput.value;
+
   el.filterSearch.value = state.searchTerm;
+
   render();
-  document
-    .getElementById("destinations")
-    .scrollIntoView({ behavior: "smooth" });
+
+  document.getElementById("destinations").scrollIntoView({
+    behavior: "smooth",
+  });
 });
 
 el.filterSearch.addEventListener("input", (e) => {
   state.searchTerm = e.target.value;
+
   render();
 });
 
 el.categoryButtons.addEventListener("click", (e) => {
   const btn = e.target.closest(".cat-btn");
+
   if (!btn) return;
 
   state.category = btn.dataset.category;
@@ -1253,6 +1630,7 @@ el.categoryButtons.addEventListener("click", (e) => {
   el.categoryButtons
     .querySelectorAll(".cat-btn")
     .forEach((b) => b.classList.remove("active"));
+
   btn.classList.add("active");
 
   render();
@@ -1260,9 +1638,11 @@ el.categoryButtons.addEventListener("click", (e) => {
 
 function handleGridClick(e) {
   const btn = e.target.closest("[data-action]");
+
   if (!btn) return;
 
   const action = btn.dataset.action;
+
   const id = btn.dataset.id;
 
   if (action === "add-trip") {
@@ -1277,40 +1657,55 @@ function handleGridClick(e) {
   ) {
     if (action === "view-details") {
       state.modalDestinationId = id;
+
       renderModal();
     }
   }
 }
 
 el.destinationsGrid.addEventListener("click", handleGridClick);
+
 el.hotelsGrid.addEventListener("click", handleGridClick);
+
 el.restaurantsGrid.addEventListener("click", handleGridClick);
+
 el.guidesGrid.addEventListener("click", handleGridClick);
+
 el.activitiesGrid.addEventListener("click", handleGridClick);
+
 el.favoritesGrid.addEventListener("click", handleGridClick);
 
 el.tripPlanList.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-action='remove-trip']");
+
   if (!btn) return;
+
   removeFromTrip(btn.dataset.tripId);
 });
 
 el.mapSelect.addEventListener("change", (e) => {
   state.selectedMapId = e.target.value;
+
   renderMap();
 });
 
 el.mapVisual.addEventListener("click", (e) => {
   const pin = e.target.closest("[data-action='select-map']");
+
   if (!pin) return;
+
   state.selectedMapId = pin.dataset.id;
+
   renderMap();
 });
 
 el.reviewRating.addEventListener("click", (e) => {
   const btn = e.target.closest("button[data-value]");
+
   if (!btn) return;
+
   state.selectedRating = Number(btn.dataset.value);
+
   updateStarButtons();
 });
 
@@ -1318,12 +1713,14 @@ el.reviewForm.addEventListener("submit", submitReview);
 
 el.modalClose.addEventListener("click", () => {
   state.modalDestinationId = null;
+
   renderModal();
 });
 
 el.modalOverlay.addEventListener("click", (e) => {
   if (e.target === el.modalOverlay) {
     state.modalDestinationId = null;
+
     renderModal();
   }
 });
@@ -1331,18 +1728,22 @@ el.modalOverlay.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && state.modalDestinationId) {
     state.modalDestinationId = null;
+
     renderModal();
   }
 });
 
 el.statusBanner.addEventListener("click", (e) => {
   const btn = e.target.closest("#retryBtn");
+
   if (!btn) return;
+
   loadCountryFacts();
 });
 
 function init() {
   render();
+
   updateStarButtons();
 
   loadCountryFacts();
