@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Ethiopia — Discover, Plan & Experience Ethiopia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="#home" class="logo">🇪🇹 Explore Ethiopia</a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mainNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+          <a href="#destinations">Destinations</a>
+          <a href="#hotels">Hotels</a>
+          <a href="#restaurants">Restaurants</a>
+          <a href="#guides">Guides</a>
+          <a href="#transportation">Transport</a>
+          <a href="#activities">Activities</a>
+          <a href="#map">Map</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#trip-planner" class="nav-trip"
+            >My Trip <span id="navTripCount" class="badge">0</span></a
+          >
+          <a href="#favorites" class="nav-fav"
+            >❤ Favorites <span id="navFavCount" class="badge">0</span></a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero" aria-label="Welcome">
+        <div class="hero-inner">
+          <h1>Explore Ethiopia</h1>
+          <p class="hero-tagline">
+            Discover the beauty, culture, history, and adventure of Ethiopia.
+          </p>
+
+          <form id="heroSearchForm" class="hero-search" role="search">
+            <label for="heroSearchInput" class="sr-only"
+              >Search destinations</label
+            >
+            <input
+              type="text"
+              id="heroSearchInput"
+              placeholder="Search Lalibela, Axum, Simien Mountains…"
+              autocomplete="off"
+            />
+            <button type="submit">Search</button>
+          </form>
+
+          <a href="#destinations" class="cta-btn">Start Exploring</a>
+
+          <p id="countryFacts" class="country-facts" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <div
+        id="statusBanner"
+        class="status-banner"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <section
+        id="destinations"
+        class="section"
+        aria-labelledby="destinationsHeading"
+      >
+        <div class="section-inner">
+          <h2 id="destinationsHeading">Destinations</h2>
+          <p class="section-sub">
+            Discover Ethiopia's most breathtaking places.
+          </p>
+
+          <div class="filter-bar">
+            <label for="filterSearch" class="sr-only"
+              >Search destinations</label
+            >
+            <input
+              type="text"
+              id="filterSearch"
+              placeholder="Search destinations…"
+            />
+
+            <div
+              class="category-buttons"
+              id="categoryButtons"
+              role="group"
+              aria-label="Filter by category"
+            >
+              <button type="button" class="cat-btn active" data-category="all">
+                All
+              </button>
+              <button type="button" class="cat-btn" data-category="Historical">
+                Historical
+              </button>
+              <button type="button" class="cat-btn" data-category="Nature">
+                Nature
+              </button>
+              <button type="button" class="cat-btn" data-category="Adventure">
+                Adventure
+              </button>
+              <button type="button" class="cat-btn" data-category="Culture">
+                Culture
+              </button>
+              <button type="button" class="cat-btn" data-category="City">
+                City
+              </button>
+            </div>
+          </div>
+
+          <div id="destinationsGrid" class="card-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- ============ HOTELS ============ -->
+      <section
+        id="hotels"
+        class="section section-alt"
+        aria-labelledby="hotelsHeading"
+      >
+        <div class="section-inner">
+          <h2 id="hotelsHeading">Hotels</h2>
+          <p class="section-sub">
+            Comfortable places to stay across Ethiopia. (Demo data)
+          </p>
+          <div id="hotelsGrid" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section
+        id="restaurants"
+        class="section"
+        aria-labelledby="restaurantsHeading"
+      >
+        <div class="section-inner">
+          <h2 id="restaurantsHeading">Restaurants</h2>
+          <p class="section-sub">
+            Taste Ethiopia — from injera and tibs to shiro and kitfo. (Demo
+            data)
+          </p>
+          <div id="restaurantsGrid" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section
+        id="guides"
+        class="section section-alt"
+        aria-labelledby="guidesHeading"
+      >
+        <div class="section-inner">
+          <h2 id="guidesHeading">Tour Guides</h2>
+          <p class="section-sub">
+            Local experts to guide your journey. (Demo data)
+          </p>
+          <div id="guidesGrid" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section
+        id="transportation"
+        class="section"
+        aria-labelledby="transportHeading"
+      >
+        <div class="section-inner">
+          <h2 id="transportHeading">Transportation</h2>
+          <p class="section-sub">Getting around Ethiopia. (Demo data)</p>
+          <div id="transportGrid" class="card-grid transport-grid"></div>
+        </div>
+      </section>
+
+      <section
+        id="activities"
+        class="section section-alt"
+        aria-labelledby="activitiesHeading"
+      >
+        <div class="section-inner">
+          <h2 id="activitiesHeading">Activities</h2>
+          <p class="section-sub">
+            Things to do across the country. (Demo data)
+          </p>
+          <div id="activitiesGrid" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section id="map" class="section" aria-labelledby="mapHeading">
+        <div class="section-inner">
+          <h2 id="mapHeading">Map</h2>
+          <p class="section-sub">
+            Select a destination to see its location details.
+          </p>
+
+          <div class="map-wrap">
+            <div class="map-picker">
+              <label for="mapSelect">Choose a destination</label>
+              <select id="mapSelect"></select>
+              <div id="mapInfo" class="map-info"></div>
+            </div>
+
+            <div
+              class="map-visual"
+              id="mapVisual"
+              aria-label="Stylized map of Ethiopia with destination markers"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="reviews"
+        class="section section-alt"
+        aria-labelledby="reviewsHeading"
+      >
+        <div class="section-inner">
+          <h2 id="reviewsHeading">Reviews</h2>
+          <p class="section-sub">What travelers are saying.</p>
+
+          <div class="reviews-layout">
+            <div id="reviewsList" class="reviews-list" aria-live="polite"></div>
+
+            <form id="reviewForm" class="review-form" novalidate>
+              <h3>Write a Review</h3>
+
+              <label for="reviewName">Your name</label>
+              <input type="text" id="reviewName" name="reviewName" />
+              <p class="field-error" id="reviewNameError" role="alert"></p>
+
+              <label for="reviewDestination">Destination</label>
+              <select id="reviewDestination" name="reviewDestination"></select>
+
+              <fieldset class="rating-fieldset">
+                <legend>Rating</legend>
+                <div
+                  id="reviewRating"
+                  class="star-picker"
+                  role="radiogroup"
+                  aria-label="Rating"
+                >
+                  <button type="button" data-value="1" aria-label="1 star">
+                    ★
+                  </button>
+                  <button type="button" data-value="2" aria-label="2 stars">
+                    ★
+                  </button>
+                  <button type="button" data-value="3" aria-label="3 stars">
+                    ★
+                  </button>
+                  <button type="button" data-value="4" aria-label="4 stars">
+                    ★
+                  </button>
+                  <button type="button" data-value="5" aria-label="5 stars">
+                    ★
+                  </button>
+                </div>
+                <p class="field-error" id="reviewRatingError" role="alert"></p>
+              </fieldset>
+
+              <label for="reviewComment">Comment</label>
+              <textarea
+                id="reviewComment"
+                name="reviewComment"
+                rows="4"
+              ></textarea>
+              <p class="field-error" id="reviewCommentError" role="alert"></p>
+
+              <button type="submit" class="btn-primary">Submit Review</button>
+              <p class="form-success" id="reviewSuccess" role="status"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="trip-planner" class="section" aria-labelledby="tripHeading">
+        <div class="section-inner">
+          <h2 id="tripHeading">My Ethiopia Trip</h2>
+          <p class="section-sub">Everything you've added to your trip plan.</p>
+
+          <div id="tripPlanList" class="trip-list" aria-live="polite"></div>
+
+          <div class="trip-summary">
+            <p><strong id="tripItemCount">0</strong> items selected</p>
+            <p class="trip-total">
+              Estimated Cost: <strong id="tripTotal">0 ETB</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="favorites"
+        class="section section-alt"
+        aria-labelledby="favHeading"
+      >
+        <div class="section-inner">
+          <h2 id="favHeading">Favorites</h2>
+          <p class="section-sub">Destinations you've saved for later.</p>
+
+          <div id="favoritesGrid" class="card-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="modalOverlay" class="modal-overlay hidden">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close details"
+        >
+          &times;
+        </button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>🇪🇹 Explore Ethiopia — Discover, Plan &amp; Experience Ethiopia.</p>
+        <p class="footer-note">
+          Demo project · Sample data for destinations, hotels, restaurants,
+          guides, transportation, and activities.
+        </p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
