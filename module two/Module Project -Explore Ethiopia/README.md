@@ -1,5 +1,9 @@
 # 🇪🇹 Explore Ethiopia
 
+🎥 Loom Video:
+
+🌐 Live Application: https://cosmic-piroshki-b5782f.netlify.app/
+
 ## Discover, Plan & Experience Ethiopia
 
 **Explore Ethiopia** is an all-in-one Ethiopian travel and tourism web app built with plain **HTML, CSS, and JavaScript**.
