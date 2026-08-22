@@ -525,7 +525,6 @@ const INITIAL_REVIEWS = [
   },
 ];
 
-/* Destination map coordinates for the stylized map (percentage positions) */
 const MAP_COORDS = {
   d1: { top: "58%", left: "48%" },
   d2: { top: "30%", left: "58%" },
@@ -605,7 +604,59 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+/* =========================================================
+   REAL DESTINATION IMAGES
+   ========================================================= */
+
+const REAL_DESTINATION_IMAGES = {
+  /* Real Lalibela Rock-Hewn Churches photograph */
+  lalibela:
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Rock-Hewn%20Churches%2C%20Lalibela-107572.jpg?width=900",
+
+  /* Real Bale Mountains photograph */
+  "bale-mountains":
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Bale%20mountains.jpg?width=900",
+
+  /* Real Arba Minch photograph */
+  "arba-minch":
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Arba%20Minch%2C%20Ethiopia%20%2812563180364%29.jpg?width=900",
+
+  /* Real Danakil Depression photograph */
+  "danakil-depression":
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Danakil%20depression.jpg?width=900",
+
+  /* Real Harar photograph */
+  harar:
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Harar%2C%20Ethiopia.jpg?width=900",
+
+  /* Real Bahir Dar / Lake Tana photograph */
+  "bahir-dar":
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Tana%20in%20Bahir%20Dar.jpg?width=900",
+
+  /* Real Simien Mountains photograph */
+  "simien-mountains":
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Simien%20mountains.jpg?width=900",
+
+  /* Real Gondar Royal Enclosure photograph */
+  gondar:
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Royal%20Enclosure%20at%20Gondar.jpg?width=900",
+
+  /* Real Axum Obelisks photograph */
+  axum: "https://commons.wikimedia.org/wiki/Special:FilePath/Obleisks%20of%20Axum.jpg?width=900",
+};
+
 function imgUrl(seed, w, h) {
+  /*
+    Use real location-specific photographs for the
+    destinations above.
+  */
+  if (REAL_DESTINATION_IMAGES[seed]) {
+    return REAL_DESTINATION_IMAGES[seed];
+  }
+
+  /*
+    Keep the existing image functionality for everything else.
+  */
   return `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
 }
 
@@ -701,7 +752,6 @@ function renderDestinations() {
             loading="lazy"
           />
 
-          <!-- FAVORITE HEART -->
           <button
             type="button"
             class="fav-btn ${isFav ? "active" : ""}"
@@ -1350,7 +1400,6 @@ function renderModal() {
 
       <div class="card-actions">
 
-        <!-- FAVORITE BUTTON IN MODAL -->
         <button
           type="button"
           class="btn-secondary"
@@ -1435,20 +1484,15 @@ function removeFromTrip(tripId) {
 
 function toggleFavorite(destId) {
   if (state.favorites.includes(destId)) {
-    // Remove from favorites
     state.favorites = state.favorites.filter((id) => id !== destId);
   } else {
-    // Add to favorites
     state.favorites.push(destId);
   }
 
-  // Save favorites so they remain after refreshing the page
   save("ee_favorites", state.favorites);
 
-  // Update the page
   render();
 
-  // Update the modal if it is currently open
   if (state.modalDestinationId === destId) {
     renderModal();
   }
@@ -1458,9 +1502,7 @@ function validateReviewForm(name, comment, rating) {
   let valid = true;
 
   const nameErrorEl = document.getElementById("reviewNameError");
-
   const commentErrorEl = document.getElementById("reviewCommentError");
-
   const ratingErrorEl = document.getElementById("reviewRatingError");
 
   nameErrorEl.textContent = "";
