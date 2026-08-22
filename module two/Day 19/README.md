@@ -1,5 +1,9 @@
 # Day 19 - The DOM & Events
 
+🎥 Loom Video:
+
+🌐 Live Application: https://cosmic-piroshki-b5782f.netlify.app/
+
 ## Description
 
 This folder contains the Day 19 DOM and Events work from IBT College Canada CodeOps Module 2. It includes the core DOM/Events exercises plus the **Addis Market Shopping List** mini-project, built in two stages as the exercise evolved.
