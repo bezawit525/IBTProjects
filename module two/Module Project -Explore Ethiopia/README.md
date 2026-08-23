@@ -1,6 +1,6 @@
 # 🇪🇹 Explore Ethiopia
 
-🎥 Loom Video:
+🎥 Loom Video: https://www.loom.com/share/f680e380c50c4c71a2adfd83f43a4ac5
 
 🌐 Live Application: https://cosmic-piroshki-b5782f.netlify.app/
 
