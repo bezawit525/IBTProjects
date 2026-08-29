@@ -1,5 +1,5 @@
-import Header from "./components/Header/Header.jsx";
-import Dish from "./components/Dish/Dish.jsx";
+import Header from "./components/Header.jsx";
+import Dish from "./components/Dish.jsx";
 
 const menu = [
   {

@@ -1,20 +1,18 @@
-import { useState } from "react";
-import Header from "./components/Header/Header.jsx";
-import "./App.css";
-import React from "react";
-import MainContent from "./components/MainContent/MainContent.jsx";
+import Header from "../Components/Header.jsx";
+import Menu from "../Components/Menu.jsx";
+import menu from "../Components/data.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <Header
-        title="welcome to IBT college"
-        description="this is sample description"
-      />
-      <MainContent />
-    </>
+    <div className="app">
+      <Header />
+
+      <main>
+        <h2>Our Menu</h2>
+
+        <Menu dishes={menu} category="Main" />
+      </main>
+    </div>
   );
 }
 
