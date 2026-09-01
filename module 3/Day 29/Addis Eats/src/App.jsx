@@ -1,6 +1,6 @@
-import Header from "components/Header.jsx";
-import Menu from "components/Menu.jsx";
-import OrderForm from "components/OrderForm.jsx";
+import Header from "../components/Header.jsx";
+import Menu from "../components/Menu.jsx";
+import OrderForm from "../components/OrderForm.jsx";
 import menu from "./data";
 
 function App() {
