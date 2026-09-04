@@ -1,18 +1,17 @@
-import Header from "../Components/Header.jsx";
-import Menu from "../Components/Menu.jsx";
-import menu from "../Components/data.jsx";
+import { useState } from "react";
+import Header from "./Components/Header/Header.jsx";
+import Menu from "./Components/Menu/Menu.jsx";
+
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
-    <div className="app">
+    <>
       <Header />
-
-      <main>
-        <h2>Our Menu</h2>
-
-        <Menu dishes={menu} category="Main" />
-      </main>
-    </div>
+      <Menu category="Main" />
+    </>
   );
 }
 

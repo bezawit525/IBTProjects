@@ -1,49 +1,26 @@
-import Header from "components/Header.jsx";
-import Dish from "components/Dish.jsx";
+import { useState } from "react";
+import Header from "./Components/Header/Header.jsx";
+import Dish from "./Components/Dish/Dish.jsx";
 
-const menu = [
-  {
-    id: 1,
-    name: "Doro Wat",
-    price: 240,
-  },
-  {
-    id: 2,
-    name: "Shiro",
-    price: 120,
-  },
-  {
-    id: 3,
-    name: "Tibs",
-    price: 280,
-  },
-  {
-    id: 4,
-    name: "Kitfo",
-    price: 350,
-  },
-  {
-    id: 5,
-    name: "Firfir",
-    price: 150,
-  },
-];
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(0);
+  const Dishes = [
+    { id: 1, name: "Doro Wat", price: 250 },
+    { id: 2, name: "Tibs", price: 300 },
+    { id: 3, name: "Shiro", price: 180 },
+  ];
+
   return (
-    <div className="app">
+    <>
       <Header />
-
-      <main>
-        <h2>Our Menu</h2>
-
-        <div className="menu">
-          {menu.map((dish) => (
-            <Dish key={dish.id} name={dish.name} price={dish.price} />
-          ))}
-        </div>
-      </main>
-    </div>
+      <div className="menu">
+        {Dishes.map((dish) => (
+          <Dish key={dish.id} name={dish.name} price={dish.price} />
+        ))}
+      </div>
+    </>
   );
 }
 

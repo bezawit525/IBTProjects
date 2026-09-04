@@ -1,19 +1,14 @@
-import Header from "components/Header.jsx";
-import Menu from "components/Menu.jsx";
-import OrderForm from "components/OrderForm.jsx";
-import menu from "./data";
+import Header from "./Components/Header/Header.jsx";
+import Menu from "./Components/Menu/Menu.jsx";
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="app">
+    <>
       <Header />
-
-      <main>
-        <Menu dishes={menu} />
-
-        <OrderForm />
-      </main>
-    </div>
+      <Menu />
+    </>
   );
 }
 
