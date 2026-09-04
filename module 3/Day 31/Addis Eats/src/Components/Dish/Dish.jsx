@@ -1,10 +1,7 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import Card from "../Card/Card.jsx";
 
-function Dish({ name, price, spicy, currency = "ETB" }) {
-  const [count, setCount] = useState(0);
-
+function Dish({ name, price, spicy, currency = "ETB", onAdd }) {
   return (
     <Card>
       <div className="dish">
@@ -14,11 +11,11 @@ function Dish({ name, price, spicy, currency = "ETB" }) {
           {price} {currency}
         </p>
 
-        {spicy && <span>Spicy</span>}
+        {spicy && <span>🌶️ Spicy</span>}
 
-        <p>Quantity: {count}</p>
+        <br />
 
-        <button onClick={() => setCount(count + 1)}>Add</button>
+        <button onClick={onAdd}>Add to Cart</button>
       </div>
     </Card>
   );
@@ -29,6 +26,7 @@ Dish.propTypes = {
   price: PropTypes.number.isRequired,
   spicy: PropTypes.bool,
   currency: PropTypes.string,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default Dish;
