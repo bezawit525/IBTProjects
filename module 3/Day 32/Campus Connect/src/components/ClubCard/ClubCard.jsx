@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useFavorites } from "../../Context/FavoritesContext";
+import { useFavorites } from "../../Context/FavoritesContext.jsx";
 
 function ClubCard({ club }) {
   const { favorites, toggleFavorite } = useFavorites();
