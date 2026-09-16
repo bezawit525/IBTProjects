@@ -5,8 +5,9 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <NavLink to="/" className="logo">
-          Campus Connect
+          CampusConnect
         </NavLink>
+
         <div className="nav-links">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/clubs">Clubs</NavLink>
