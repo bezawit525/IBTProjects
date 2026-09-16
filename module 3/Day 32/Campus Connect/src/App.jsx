@@ -12,7 +12,7 @@ import Resources from "./pages/Resources/Resources.jsx";
 import About from "./pages/About/About.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 
-import { FavoritesProvider } from "./Context/FavoritesContext.jsx";
+import { FavoritesProvider } from "./context/FavoritesContext.jsx";
 
 function App() {
   return (
