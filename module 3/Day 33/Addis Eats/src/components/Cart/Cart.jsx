@@ -1,4 +1,4 @@
-import useCartStore from "../../store/cartStore";
+import useCartStore from "../../store/cartStor.jsx";
 
 function Cart() {
   const items = useCartStore((state) => state.items);
