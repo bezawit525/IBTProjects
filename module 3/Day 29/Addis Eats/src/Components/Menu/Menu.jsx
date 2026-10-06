@@ -1,33 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CategoryBar from "../CategoryBar/CategoryBar.jsx";
-import Dish from "../Dish/Dish.jsx";
-import { loadDishes } from "../../api.js";
+import DishList from "../Dish/DishList.jsx";
+
+const categories = ["All", "Main", "Vegan", "Grill", "Starter"];
 
 function Menu() {
-  const [category, setCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState([]);
 
   const searchInputRef = useRef(null);
-
-  // Focus the search input when the component loads
-  useEffect(() => {
-    searchInputRef.current.focus();
-  }, []);
-
-  // Fetch dishes whenever the category changes
   useEffect(() => {
     const controller = new AbortController();
-
     async function fetchDishes() {
+      setLoading(true);
+      setError("");
+
       try {
-        setLoading(true);
-        setError("");
+        const response = await fetch("/menu.json", {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error("failed to load the menu.");
+        }
+        const data = await response.json();
+        const filteredData =
+          selectedCategory === "All"
+            ? data
+            : data.filter((dish) => dish.category === selectedCategory);
 
-        const data = await loadDishes(category, controller.signal);
-
-        setDishes(data);
+        setDishes(filteredData);
       } catch (error) {
         if (error.name !== "AbortError") {
           setError(error.message);
@@ -41,41 +44,32 @@ function Menu() {
 
     fetchDishes();
 
-    // Cancel the previous request
     return () => {
       controller.abort();
     };
-  }, [category]);
+  }, [selectedCategory]);
 
+  useEffect(() => {
+    searchInputRef.current?.focus();
+  }, []);
   if (loading) {
-    return <p>Loading dishes...</p>;
+    return <p>Loading menu...</p>;
   }
-
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error:{error}</p>;
   }
 
   return (
-    <>
-      <CategoryBar selectedCategory={category} onSelect={setCategory} />
-
+    <section>
+      <h2>Our Menu</h2>
       <input ref={searchInputRef} type="text" placeholder="Search dishes..." />
-
-      <div className="menu">
-        {dishes.length === 0 ? (
-          <p>No dishes available in this category.</p>
-        ) : (
-          dishes.map((dish) => (
-            <Dish
-              key={dish.id}
-              name={dish.name}
-              price={dish.price}
-              spicy={dish.spicy}
-            />
-          ))
-        )}
-      </div>
-    </>
+      <CategoryBar
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
+      <DishList dishes={dishes} />
+    </section>
   );
 }
 
