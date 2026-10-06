@@ -1,78 +1,45 @@
-import { useMemo, useRef, useEffect, useState, useContext } from "react";
-import useFetch from "../../hooks/useFetch.js";
+import { useState, useMemo } from "react";
 import CategoryBar from "../CategoryBar/CategoryBar.jsx";
-import Dish from "../Dish/Dish.jsx";
-import { CartContext } from "../cart/CartProvider.jsx";
+import DishList from "../Dish/DishList.jsx";
+import useFetch from "../../hooks/useFetch";
+
+const categories = ["All", "Main", "Vegan", "Grill", "Starter"];
 
 function Menu() {
-  const [category, setCategory] = useState("All");
-  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const searchInputRef = useRef(null);
+  const menuUrl =
+    selectedCategory === "All"
+      ? "/menu.json"
+      : `/menu.json?category=${selectedCategory}`;
 
-  const { data: dishes, loading, error } = useFetch("/dishes.json");
-
-  const { dispatch } = useContext(CartContext);
-
-  useEffect(() => {
-    searchInputRef.current.focus();
-  }, []);
+  const { data, loading, error } = useFetch(menuUrl);
 
   const filteredDishes = useMemo(() => {
-    return dishes.filter((dish) => {
-      const matchesCategory = category === "All" || dish.category === category;
+    if (selectedCategory === "All") {
+      return data;
+    }
 
-      const matchesSearch = dish.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [dishes, category, search]);
+    return data.filter((dish) => dish.category === selectedCategory);
+  }, [data, selectedCategory]);
 
   if (loading) {
-    return <p>Loading dishes...</p>;
+    return <p>Loading menu...</p>;
   }
-
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error:{error}</p>;
   }
-
-  const handleAdd = (dish) => {
-    dispatch({
-      type: "add",
-      payload: dish,
-    });
-  };
 
   return (
-    <>
-      <CategoryBar selectedCategory={category} onSelect={setCategory} />
-
-      <input
-        ref={searchInputRef}
-        type="text"
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-        placeholder="Search dishes..."
+    <section>
+      <h2>Our Menu</h2>
+      <CategoryBar
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
       />
-
-      <div className="menu">
-        {filteredDishes.length === 0 ? (
-          <p>No dishes available.</p>
-        ) : (
-          filteredDishes.map((dish) => (
-            <Dish
-              key={dish.id}
-              name={dish.name}
-              price={dish.price}
-              spicy={dish.spicy}
-              onAdd={() => handleAdd(dish)}
-            />
-          ))
-        )}
-      </div>
-    </>
+      <DishList dishes={filteredDishes} />
+    </section>
   );
 }
 

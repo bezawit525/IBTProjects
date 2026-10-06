@@ -1,16 +1,16 @@
-import Header from "./Components/Header/Header.jsx";
-import Menu from "./Components/Menu/Menu.jsx";
-import Checkout from "./Components/Checkout/Checkout.jsx";
-import CartProvider from "./Components/cart/CartProvider.jsx";
-
-import "./App.css";
+import Header from "./components/Header/Header.jsx";
+import Menu from "./components/Menu/Menu.jsx";
+import Checkout from "./components/Checkout/Checkout.jsx";
+import CartProvider from "./components/CartProvider/CartProvider.jsx";
 
 function App() {
   return (
     <CartProvider>
       <Header />
-      <Menu />
-      <Checkout />
+      <main>
+        <Menu />
+        <Checkout />
+      </main>
     </CartProvider>
   );
 }

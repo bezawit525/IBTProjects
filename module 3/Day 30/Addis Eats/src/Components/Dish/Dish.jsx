@@ -1,21 +1,26 @@
 import PropTypes from "prop-types";
-import Card from "../Card/Card.jsx";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext.js";
 
-function Dish({ name, price, spicy, currency = "ETB", onAdd }) {
+function Dish({ name, price, spicy, currency = "ETB", dish }) {
+  const { dispatch } = useContext(CartContext);
+  function handleAdd() {
+    dispatch({
+      type: "add",
+      dish,
+    });
+  }
   return (
-    <Card>
-      <div className="dish">
-        <h3>{name}</h3>
-
+    <div className="dish">
+      <div>
+        <h2>{name}</h2>
         <p>
           {price} {currency}
         </p>
-
-        {spicy && <span>🌶️ Spicy</span>}
-
-        <button onClick={onAdd}>Add to Cart</button>
+        <p>{spicy && <span>Spicy</span>}</p>
       </div>
-    </Card>
+      <button onClick={handleAdd}>Add</button>
+    </div>
   );
 }
 
@@ -24,7 +29,12 @@ Dish.propTypes = {
   price: PropTypes.number.isRequired,
   spicy: PropTypes.bool,
   currency: PropTypes.string,
-  onAdd: PropTypes.func.isRequired,
+  dish: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    category: PropTypes.string.isRequired,
+    spicy: PropTypes.bool,
+  }).isRequired,
 };
-
 export default Dish;

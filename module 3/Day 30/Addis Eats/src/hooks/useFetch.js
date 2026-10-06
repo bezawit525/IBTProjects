@@ -9,16 +9,15 @@ function useFetch(url) {
     const controller = new AbortController();
 
     async function fetchData() {
-      try {
-        setLoading(true);
-        setError("");
+      setLoading(true);
+      setError("");
 
+      try {
         const response = await fetch(url, {
           signal: controller.signal,
         });
-
         if (!response.ok) {
-          throw new Error("Failed to fetch data.");
+          throw new Error("Failed to load the menu");
         }
 
         const result = await response.json();
@@ -34,7 +33,6 @@ function useFetch(url) {
         }
       }
     }
-
     fetchData();
 
     return () => {
@@ -42,7 +40,11 @@ function useFetch(url) {
     };
   }, [url]);
 
-  return { data, loading, error };
+  return {
+    data,
+    loading,
+    error,
+  };
 }
 
 export default useFetch;

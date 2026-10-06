@@ -1,19 +1,13 @@
-import { useContext } from "react";
-import { CartContext } from "../../cart/CartProvider.jsx";
+import CartBadge from "../CartBadge/CartBadge.jsx";
 
 function Header() {
-  const { items } = useContext(CartContext);
-
-  const cartCount = items.reduce((total, item) => total + item.quantity, 0);
-
   return (
-    <header className="header">
+    <header>
       <h1>Addis Eats</h1>
-      <p>Authentic Ethiopian Food</p>
+      <p>Delicious Ethiopian food</p>
 
-      <div>🛒 Cart: {cartCount}</div>
+      <CartBadge />
     </header>
   );
 }
-
 export default Header;
