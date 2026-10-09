@@ -11,12 +11,12 @@ const useCartStore = create(
           items: [...state.items, dish],
         })),
 
-      removeItem: (dishId) =>
+      remove: (dishId) =>
         set((state) => ({
-          items: state.items.filter((item) => item.id !== dishId),
+          items: state.items.filter((dish) => dish.id !== dishId),
         })),
 
-      clearCart: () =>
+      clear: () =>
         set({
           items: [],
         }),

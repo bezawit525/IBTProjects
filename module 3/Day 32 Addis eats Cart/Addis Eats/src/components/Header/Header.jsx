@@ -1,15 +1,13 @@
-import useCartStore from "../../store/cartStore";
+import CartBadge from "../CartBadge/CartBadge.jsx";
 
 function Header() {
-  const items = useCartStore((state) => state.items);
-
   return (
     <header>
       <h1>Addis Eats</h1>
+      <p>Delicious Ethiopian food</p>
 
-      <div>Cart: {items.length}</div>
+      <CartBadge />
     </header>
   );
 }
-
 export default Header;

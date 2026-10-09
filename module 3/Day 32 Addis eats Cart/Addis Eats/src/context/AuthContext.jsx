@@ -1,17 +1,27 @@
-import { createContext, useContext } from "react";
+import { createContext, useState } from "react";
 
-const CartContext = createContext(null);
+export const AuthContext = createContext(null);
 
-export function CartProvider({ children }) {
-  return <CartContext.Provider value={{}}>{children}</CartContext.Provider>;
-}
+export function AuthProvider({ children }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export function useCart() {
-  const context = useContext(CartContext);
-
-  if (!context) {
-    throw new Error("useCart must be used inside CartProvider");
+  function signIn() {
+    setIsAuthenticated(true);
   }
 
-  return context;
+  function signOut() {
+    setIsAuthenticated(false);
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        signIn,
+        signOut,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
