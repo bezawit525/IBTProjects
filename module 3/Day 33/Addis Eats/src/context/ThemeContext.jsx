@@ -1,37 +1,26 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-const AuthContext = createContext(null);
+export const ThemeContext = createContext(null);
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
 
-  function login(userData) {
-    setUser(userData);
+  function toggleTheme() {
+    setTheme((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
   }
 
-  function logout() {
-    setUser(null);
-  }
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
   return (
-    <AuthContext.Provider
+    <ThemeContext.Provider
       value={{
-        user,
-        login,
-        logout,
+        theme,
+        toggleTheme,
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </ThemeContext.Provider>
   );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
-  }
-
-  return context;
 }

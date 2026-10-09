@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import useCartStore from "../../stores/cartStore.js";
+import useCartStore from "../stores/cartStore";
 
-function Checkout() {
+function CartPage() {
   const items = useCartStore((state) => state.items);
 
   const remove = useCartStore((state) => state.remove);
@@ -10,9 +10,13 @@ function Checkout() {
 
   const total = items.reduce((sum, dish) => sum + dish.price, 0);
 
+  function handleRemove(id) {
+    remove(id);
+  }
+
   return (
     <section className="checkout">
-      <h2>Checkout</h2>
+      <h2>Your Cart</h2>
 
       {items.length === 0 ? (
         <>
@@ -28,17 +32,21 @@ function Checkout() {
                 {dish.name} - {dish.price} ETB
               </span>
 
-              <button onClick={() => remove(dish.id)}>Remove</button>
+              <button onClick={() => handleRemove(dish.id)}>Remove</button>
             </div>
           ))}
 
           <h3>Total: {total} ETB</h3>
 
           <button onClick={clear}>Clear Cart</button>
+
+          <div className="checkout-link">
+            <Link to="/checkout">Proceed to Checkout</Link>
+          </div>
         </>
       )}
     </section>
   );
 }
 
-export default Checkout;
+export default CartPage;
