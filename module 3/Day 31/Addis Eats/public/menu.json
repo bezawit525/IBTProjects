@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Doro Wat",
+    "name": "Doro Wot",
     "price": 250,
     "category": "Main",
     "spicy": true
@@ -10,14 +10,21 @@
     "id": 2,
     "name": "Tibs",
     "price": 300,
-    "category": "Main",
+    "category": "Grill",
     "spicy": true
   },
   {
     "id": 3,
     "name": "Shiro",
     "price": 180,
-    "category": "Vegetarian",
+    "category": "Vegan",
+    "spicy": false
+  },
+  {
+    "id": 4,
+    "name": "Sambusa",
+    "price": 80,
+    "category": "Starter",
     "spicy": false
   }
 ]

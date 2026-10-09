@@ -1,23 +1,23 @@
-import { Link, Outlet } from "react-router-dom";
-import Header from "../Header/Header.jsx";
+import { NavLink, Outlet } from "react-router-dom";
+import CartBadge from "../CartBadge/CartBadge.jsx";
 
 function Layout() {
   return (
     <>
-      <Header />
+      <header>
+        <h1>Addis Eats</h1>
+        <p>Delicious Ethiopian food</p>
+        <CartBadge />
+      </header>
 
-      <nav>
-        <Link to="/">Home</Link> <Link to="/menu">Menu</Link>{" "}
-        <Link to="/checkout">Checkout</Link> <Link to="/signin">Sign In</Link>
+      <nav className="navbar">
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/menu">Menu</NavLink>
+        <NavLink to="/cart">Cart</NavLink>
       </nav>
-
       <main>
         <Outlet />
       </main>
-
-      <footer>
-        <p>© 2026 Addis Eats</p>
-      </footer>
     </>
   );
 }

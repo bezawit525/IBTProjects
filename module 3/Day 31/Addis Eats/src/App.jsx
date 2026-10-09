@@ -1,96 +1,60 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import CartProvider from "./cart/CartProvider.jsx";
+import Layout from "./components/Layout/Layout.jsx";
+import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
+import Home from "./pages/Home.jsx";
 
-import Layout from "../Components/Layout/Layout.jsx";
-import Menu from "./Components/Menu/Menu.jsx";
-import Checkout from "./Components/Checkout/Checkout.jsx";
-import DishDetail from "./Components/DishDetail/DishDetail.jsx";
-import RequireAuth from "./Components/auth/RequireAuth.jsx";
+import MenuPage from "./pages/MenuPage.jsx";
+import DishDetails from "./pages/DishDetails.jsx";
+import CartPage from "./pages/cartPage.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import CheckoutPage from "./pages/CheckoutPage.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
-import "./App.css";
-
-function Home() {
-  return (
-    <div>
-      <h2>Welcome to Addis Eats</h2>
-      <p>Discover delicious Ethiopian food.</p>
-    </div>
-  );
-}
-
-function SignIn() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || "/";
-
-  function handleSignIn() {
-    localStorage.setItem("signedIn", "true");
-
-    navigate(from, {
-      replace: true,
-    });
-  }
-
-  return (
-    <div>
-      <h2>Sign In</h2>
-
-      <button onClick={handleSignIn}>Sign In</button>
-    </div>
-  );
-}
-function NotFound() {
-  return (
-    <div>
-      <h2>404 - Page Not Found</h2>
-      <p>The page you are looking for does not exist.</p>
-    </div>
-  );
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "menu",
+        element: <MenuPage />,
+      },
+      {
+        path: "menu/:id",
+        element: <DishDetails />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
+      },
+      {
+        element: <RequireAuth />,
+        children: [
+          {
+            path: "checkout",
+            element: <CheckoutPage />,
+          },
+        ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <CartProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            {/* Landing page */}
-            <Route index element={<Home />} />
-
-            {/* Menu */}
-            <Route path="menu" element={<Menu />} />
-
-            {/* Individual dish */}
-            <Route path="menu/:id" element={<DishDetail />} />
-
-            {/* Protected checkout */}
-            <Route
-              path="checkout"
-              element={
-                <RequireAuth>
-                  <Checkout />
-                </RequireAuth>
-              }
-            />
-
-            {/* Sign in */}
-            <Route path="signin" element={<SignIn />} />
-
-            {/* Anything else */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </CartProvider>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

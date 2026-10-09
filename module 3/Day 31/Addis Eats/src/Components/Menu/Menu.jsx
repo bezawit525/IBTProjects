@@ -1,102 +1,55 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
-
-import { Link, useSearchParams } from "react-router-dom";
-
-import useFetch from "../../hooks/useFetch.js";
+import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import CategoryBar from "../CategoryBar/CategoryBar.jsx";
-import Dish from "../Dish/Dish.jsx";
-import { CartContext } from "../cart/CartProvider.jsx";
+import DishList from "../Dish/DishList.jsx";
+import useFetch from "../../hooks/useFetch";
+
+const categories = ["All", "Main", "Vegan", "Grill", "Starter"];
 
 function Menu() {
-  const [search, setSearch] = useState("");
-
-  const searchInputRef = useRef(null);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get("category") || "All";
+  const selectedCategory = searchParams.get("category") || "All";
 
-  const { data: dishes, loading, error } = useFetch("/dishes.json");
+  const menuUrl = "/menu.json";
 
-  const { dispatch } = useContext(CartContext);
+  const { data, loading, error } = useFetch(menuUrl);
 
-  useEffect(() => {
-    searchInputRef.current?.focus();
-  }, []);
-
-  function handleCategoryChange(newCategory) {
-    if (newCategory === "All") {
+  function handleCategoryChange(category) {
+    if (category === "All") {
       setSearchParams({});
     } else {
       setSearchParams({
-        category: newCategory,
+        category,
       });
     }
   }
 
   const filteredDishes = useMemo(() => {
-    return dishes.filter((dish) => {
-      const matchesCategory = category === "All" || dish.category === category;
+    if (selectedCategory === "All") {
+      return data;
+    }
 
-      const matchesSearch = dish.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [dishes, category, search]);
+    return data.filter((dish) => dish.category === selectedCategory);
+  }, [data, selectedCategory]);
 
   if (loading) {
-    return <p>Loading dishes...</p>;
+    return <p>Loading menu...</p>;
   }
-
   if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  function handleAdd(dish) {
-    dispatch({
-      type: "add",
-      payload: dish,
-    });
+    return <p>Error:{error}</p>;
   }
 
   return (
-    <>
+    <section>
       <h2>Our Menu</h2>
-
       <CategoryBar
-        selectedCategory={category}
-        onSelect={handleCategoryChange}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={handleCategoryChange}
       />
-
-      <input
-        ref={searchInputRef}
-        type="text"
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-        placeholder="Search dishes..."
-      />
-
-      <div className="menu">
-        {filteredDishes.length === 0 ? (
-          <p>No dishes available.</p>
-        ) : (
-          filteredDishes.map((dish) => (
-            <div key={dish.id}>
-              <Dish
-                name={dish.name}
-                price={dish.price}
-                spicy={dish.spicy}
-                onAdd={() => handleAdd(dish)}
-              />
-
-              <Link to={`/menu/${dish.id}`}>View Details</Link>
-            </div>
-          ))
-        )}
-      </div>
-    </>
+      <DishList dishes={filteredDishes} />
+    </section>
   );
 }
 

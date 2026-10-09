@@ -1,44 +1,51 @@
 import { useContext } from "react";
-import { CartContext } from "../../cart/CartProvider.jsx";
+import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 
 function Checkout() {
-  const { items, dispatch, total } = useContext(CartContext);
+  const { items, total, dispatch } = useContext(CartContext);
+
+  function handleRemove(id) {
+    dispatch({
+      type: "remove",
+      id,
+    });
+  }
+
+  function handleClear() {
+    dispatch({
+      type: "clear",
+    });
+  }
 
   return (
-    <div className="checkout">
-      <h2>Your Cart</h2>
-
+    <section className="checkout">
+      <h2>Checkout</h2>
       {items.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <>
+          <p>Your cart is empty</p>
+
+          <Link to="/menu">Browse Menu</Link>
+        </>
       ) : (
         <>
-          {items.map((item) => (
-            <div key={item.id}>
-              <p>
-                {item.name} × {item.quantity}
-              </p>
-
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: "remove",
-                    payload: item.id,
-                  })
-                }
-              >
-                Remove
-              </button>
+          {items.map((dish, index) => (
+            <div className="checkout-item" key={`${dish.id}-${index}`}>
+              <span>
+                {dish.name}-{dish.price} ETB
+              </span>
+              <button onClick={() => handleRemove(dish.id)}>Remove</button>
             </div>
           ))}
-
           <h3>Total: {total} ETB</h3>
+          <button onClick={handleClear}>Clear Cart</button>
 
-          <button onClick={() => dispatch({ type: "clear" })}>
-            Clear Cart
-          </button>
+          <div className="checkout-link">
+            <Link to="/checkout">Proceed to Checkout</Link>
+          </div>
         </>
       )}
-    </div>
+    </section>
   );
 }
 

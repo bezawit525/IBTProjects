@@ -1,10 +1,9 @@
 function Header() {
   return (
-    <header className="header">
+    <header>
       <h1>Addis Eats</h1>
-      <p>Authentic Ethiopian Food</p>
+      <p>Delicious Ethiopian food</p>
     </header>
   );
 }
-
 export default Header;
