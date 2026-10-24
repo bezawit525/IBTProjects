@@ -3,9 +3,10 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main>
-      <h1> page not found </h1>
-      <p>Sorry,we couldn't find the page.</p>
-      <Link href="/">Go Home</Link>
+      <h1>404 - Page Not Found</h1>
+      <p>Sorry, we could not find that page or dish.</p>
+
+      <Link href="/menu">Return to Menu</Link>
     </main>
   );
 }

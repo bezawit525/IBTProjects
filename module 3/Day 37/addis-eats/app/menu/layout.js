@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function MenuLayout({ children }) {
   return (
     <div>
@@ -5,14 +7,15 @@ export default function MenuLayout({ children }) {
         <h2>Categories</h2>
 
         <ul>
-          <li>All</li>
           <li>Ethiopian</li>
           <li>Pizza</li>
           <li>Burgers</li>
         </ul>
+
+        <Link href="/menu">All Dishes</Link>
       </aside>
 
-      <main>{children}</main>
+      <section>{children}</section>
     </div>
   );
 }

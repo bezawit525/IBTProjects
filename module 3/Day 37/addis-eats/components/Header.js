@@ -6,9 +6,16 @@ export default function Header() {
       <h1>Addis Eats</h1>
 
       <nav>
-        <Link href="/">Home</Link> <Link href="/menu">Menu</Link>{" "}
-        <Link href="/cart">Cart</Link> <Link href="/checkout">Checkout</Link>
+        <Link href="/">Home</Link>
+        {" | "}
+        <Link href="/menu">Menu</Link>
+        {" | "}
+        <Link href="/cart">Cart</Link>
+        {" | "}
+        <Link href="/checkout">Checkout</Link>
       </nav>
+
+      <hr />
     </header>
   );
 }

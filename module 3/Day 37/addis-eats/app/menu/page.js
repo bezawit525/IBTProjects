@@ -1,13 +1,22 @@
+import { Suspense } from "react";
+import DishList from "./DishList.jsx";
+import CacheControls from "./CacheControls.jsx";
+
+function DishSkeleton() {
+  return <p>Loading dishes... Please wait.</p>;
+}
+
 export default function MenuPage() {
   return (
     <main>
-      <h1>Our Menu</h1>
+      <h2>Our Menu</h2>
+      <p>Choose your favorite dish.</p>
 
-      <ul>
-        <li>Kitfo</li>
-        <li>Doro Wot</li>
-        <li>Pizza</li>
-      </ul>
+      <CacheControls />
+
+      <Suspense fallback={<DishSkeleton />}>
+        <DishList />
+      </Suspense>
     </main>
   );
 }
