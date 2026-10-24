@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import DishList from "./DishList.jsx";
+import DishList from "./DishList";
 import CacheControls from "./CacheControls.jsx";
 
 function DishSkeleton() {

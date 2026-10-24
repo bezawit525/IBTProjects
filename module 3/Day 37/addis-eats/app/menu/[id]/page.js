@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { dishes } from "../../../lib/dishes";
+import { dishes } from "../../../lib/dishes.js";
 
 export function generateStaticParams() {
   return dishes.map((dish) => ({

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cacheLife, cacheTag } from "next/cache";
-import { dishes } from "../../lib/dishes.js";
+import { dishes } from "../../lib/dishes";
 
 async function getDishes() {
   "use cache";
