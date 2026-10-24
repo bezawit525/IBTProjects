@@ -2,7 +2,7 @@
 
 A small Next.js (App Router, plain JavaScript) app where people browse events and workshops in Addis Ababa, create an account, reserve seats, and manage their tickets from a personal dashboard. **No database and no separate backend**: events are a static catalogue and accounts/reservations live in server memory.
 
-**Live URL:** _paste your Vercel URL here_ (and set it as `NEXT_PUBLIC_SITE_URL`)
+**Live URL:** https://iridescent-granita-5939b4.netlify.app
 
 **Demo account:** `demo@example.com` / `demo1234` (or create your own; a new account shows every empty state).
 
