@@ -23,7 +23,7 @@ export default function EventPage({ params }) {
   return (
     <div className="page narrow">
       <p><Link href="/events">Back to all events</Link></p>
-      <img className="cover" src={event.image} alt={event.imageAlt} width="800" height="450" />
+      {event.image && <img className="cover" src={event.image} alt={event.imageAlt || ''} width="800" height="450" />}
       <h1>{event.title}</h1>
       <dl className="facts">
         <div><dt>When</dt><dd>{formatDate(event.date)}</dd></div>

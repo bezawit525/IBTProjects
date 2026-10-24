@@ -16,10 +16,9 @@ export default function Home() {
           <p className="lead">Find a concert, summit or hands-on workshop, reserve in under a minute, and keep every ticket in one place.</p>
           <div className="row">
             <Link href="/events" className="btn">Browse events</Link>
-            <Link href="/signup" className="btn secondary">Create an account</Link>
+            <Link href="/signup" className="btn ghost">Create an account</Link>
           </div>
         </div>
-        <img className="hero-img" src="/images/hero.svg" alt="Illustration of the Addis Ababa skyline at sunset with two event tickets" width="800" height="560" />
       </section>
       <section aria-labelledby="soon">
         <h2 id="soon">Coming up soon</h2>

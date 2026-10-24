@@ -44,7 +44,6 @@ table{width:100%;border-collapse:collapse;background:var(--card)}th,td{padding:.
 @media (prefers-reduced-motion:no-preference){.btn{transition:background-color .15s}}
 
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:1.5rem 0 1rem}
-.hero-img{width:100%;height:auto;border-radius:28px;box-shadow:0 24px 50px -20px rgba(20,56,43,.55)}
 .eyebrow{margin:0 0 .6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--green-2)}
 .lead{font-size:1.15rem;color:var(--muted);max-width:34rem}
 .hero h1{font-size:clamp(2rem,5.5vw,3.4rem)}
@@ -70,5 +69,18 @@ table{width:100%;border-collapse:collapse;background:var(--card)}th,td{padding:.
 .steps span{display:grid;place-items:center;width:2.4rem;height:2.4rem;margin-bottom:.6rem;border-radius:50%;background:var(--saffron);color:#1b1400;font-weight:800}
 .steps h3{margin-bottom:.2rem}.steps p{margin:0;color:var(--muted)}
 .site-header{position:sticky;top:0;z-index:5}
-@media (max-width:48rem){.hero{grid-template-columns:1fr}.hero-img{order:-1}}
+@media (max-width:48rem){.hero{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover,.card:focus-within{transform:none}}
+
+/* ---- no-photo design ---- */
+.hero{display:block;position:relative;overflow:hidden;margin:1rem 0 2rem;padding:clamp(1.75rem,5vw,3.5rem) clamp(1.25rem,5vw,3.5rem) clamp(2.5rem,6vw,4rem);border-radius:24px;color:#fff7e0;background:radial-gradient(circle at 88% 20%,rgba(232,163,23,.35) 0,rgba(232,163,23,0) 38%),linear-gradient(135deg,#0c241b,#1f5a43)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#078930 0 33.3%,#fcdd09 0 66.6%,#da121a 0)}
+.hero h1{color:#fff7e0;max-width:18ch}.hero .lead{color:#d6e4da}.hero .eyebrow{color:var(--saffron)}
+.hero .btn{background:var(--saffron);border-color:var(--saffron);color:#1b1400}
+.hero .btn.ghost{background:transparent;border-color:rgba(255,247,224,.6);color:#fff7e0}
+.card{border-top:6px solid var(--green-2)}
+.cat-music{border-top-color:var(--red)}.cat-art{border-top-color:var(--saffron)}.cat-business{border-top-color:#4a5f8a}.cat-tech{border-top-color:var(--green-2)}
+.chip{position:static;display:inline-block;margin:0 0 .5rem;background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.chip-workshop{background:var(--saffron);border-color:var(--saffron);color:#1b1400}
+.card-body{padding-top:1.1rem}
+.ticket{border-top:6px solid var(--green-2)}

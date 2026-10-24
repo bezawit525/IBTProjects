@@ -31,4 +31,4 @@ Accounts and reservations are held in memory, so they reset on server restart or
 `AUTH.md` security layers and the three attacks · `DATA.md` every query · `PERF.md` performance budget · `FUTURE.md` what was cut · `docs/PRESENT.md` the eight-minute script · `REVIEW.md` peer-review template.
 
 ## Pictures
-All event pictures are original SVG illustrations in `public/images/` (one per event plus `hero.svg`). To use real photos, drop a `.jpg` or `.webp` (under 150 kB) in that folder and change the `image` and `imageAlt` fields in `lib/events.js`.
+The app ships without pictures. To add real photos, put a `.jpg` or `.webp` (under 150 kB each) in `public/photos/` and add `image: '/photos/name.jpg', imageAlt: 'describe the photo'` to an event in `lib/events.js`. Cards, event pages and tickets show it automatically.

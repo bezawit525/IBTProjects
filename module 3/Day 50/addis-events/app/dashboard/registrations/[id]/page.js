@@ -19,8 +19,8 @@ export default function TicketPage({ params }) {
     <div className="narrow">
       <p><Link href="/dashboard">Back to your tickets</Link></p>
       <h1>{event.title}</h1>
-      <article className="ticket" aria-label="Ticket">
-        <img src={event.image} alt={event.imageAlt} width="800" height="450" />
+      <article className={`ticket cat-${event.category}`} aria-label="Ticket">
+        {event.image && <img src={event.image} alt={event.imageAlt || ''} width="800" height="450" />}
         <div className="ticket-row">
         <div className="card-body">
           <p className="tag">{reg.status === 'confirmed' ? 'Confirmed' : 'Cancelled'}</p>
