@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 19 - The DOM & Events</title>
+    <link rel="stylesheet" href="exercise.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1 id="page-title">Day 19 DOM Exercises</h1>
+
+      <section class="exercise">
+        <h2>Exercise 1: DOM Manipulation</h2>
+        <p id="title-status">The heading above is changed using JavaScript.</p>
+      </section>
+
+      <section class="exercise">
+        <h2>Exercise 2: Ethiopian Cities</h2>
+        <ul id="city-list"></ul>
+      </section>
+
+      <section class="exercise">
+        <h2>Exercise 3: Events and Bubbling</h2>
+        <div id="event-wrapper">
+          <button id="event-button" type="button">Click the Button</button>
+        </div>
+        <p id="event-message">Open the browser console and click the button.</p>
+      </section>
+
+      <section class="exercise">
+        <h2>Exercise 4: Delete Items</h2>
+        <ul id="delete-list">
+          <li>
+            <span>Injera</span>
+            <button class="delete-button" type="button">Delete</button>
+          </li>
+          <li>
+            <span>Shiro</span>
+            <button class="delete-button" type="button">Delete</button>
+          </li>
+          <li>
+            <span>Teff</span>
+            <button class="delete-button" type="button">Delete</button>
+          </li>
+        </ul>
+      </section>
+
+      <section class="exercise">
+        <h2>Exercise 5: Add an Item</h2>
+        <form id="item-form">
+          <label for="item-input">Item</label>
+          <div class="form-row">
+            <input id="item-input" type="text" placeholder="Enter an item" />
+            <button type="submit">Add Item</button>
+          </div>
+        </form>
+
+        <ul id="item-list"></ul>
+      </section>
+    </main>
+
+    <script src="exercise.js"></script>
+  </body>
+</html>
