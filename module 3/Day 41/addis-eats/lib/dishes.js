@@ -1,0 +1,58 @@
+export const dishes = [
+  {
+    id: "1",
+    name: "Kitfo",
+    description: "Traditional Ethiopian minced beef dish.",
+    category: "Meat",
+    price: 350,
+  },
+  {
+    id: "2",
+    name: "Doro Wot",
+    description: "Spicy Ethiopian chicken stew.",
+    category: "Meat",
+    price: 400,
+  },
+  {
+    id: "3",
+    name: "Shiro",
+    description: "Ethiopian chickpea stew.",
+    category: "Vegetarian",
+    price: 250,
+  },
+  {
+    id: "4",
+    name: "Chechebsa",
+    description: "Traditional Ethiopian breakfast.",
+    category: "Vegetarian",
+    price: 220,
+  },
+  {
+    id: "5",
+    name: "Misir Wot",
+    description: "Spiced red lentil stew.",
+    category: "Vegetarian",
+    price: 200,
+  },
+  {
+    id: "6",
+    name: "Tibs",
+    description: "Sautéed meat with onions and spices.",
+    category: "Meat",
+    price: 380,
+  },
+  {
+    id: "7",
+    name: "Firfir",
+    description: "Injera mixed with spicy sauce.",
+    category: "Vegetarian",
+    price: 180,
+  },
+  {
+    id: "8",
+    name: "Gomen",
+    description: "Ethiopian-style cooked collard greens.",
+    category: "Vegetarian",
+    price: 160,
+  },
+];
