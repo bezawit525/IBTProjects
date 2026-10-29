@@ -7,7 +7,6 @@ function Navbar() {
         <NavLink to="/" className="logo">
           CampusConnect
         </NavLink>
-
         <div className="nav-links">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/clubs">Clubs</NavLink>

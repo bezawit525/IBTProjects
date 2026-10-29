@@ -6,20 +6,17 @@ function EventCard({ event }) {
       <div className="event-date">
         <span>EVENT</span>
       </div>
-
       <div className="card-content">
         <h3>{event.name}</h3>
-
         <p>
-          <strong>Date:</strong> {event.date}
+          <strong>Date:</strong>
+          {event.date}
         </p>
-
         <p>
-          <strong>Location:</strong> {event.location}
+          <strong>Location:</strong>
+          {event.location}
         </p>
-
         <p>{event.description}</p>
-
         <Link to={`/events/${event.id}`} className="button">
           View Event
         </Link>
