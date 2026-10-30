@@ -1,0 +1,19 @@
+/* Day 47 and Day 48 additions */
+.day48-heading { margin-top: 2rem; }
+.day48-home-link { margin-top: 1.25rem; }
+.event-message { margin-top: 1rem; font-weight: 700; color: var(--accent); }
+.propagation-card { max-width: 400px; margin-top: 1.5rem; cursor: pointer; }
+.form-card input { display: block; width: 100%; margin: .5rem 0 1rem; }
+.form-card button { min-height: 44px; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #c47a31; outline-offset: 3px; }
+.sr-status { min-height: 1.5rem; margin: .4rem 0 0; color: var(--accent); }
+.tracking-page { display: grid; gap: 1rem; }
+.tracking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+.tracking-panel { max-width: none; }
+.tracking-history { padding-left: 1.3rem; }
+.tracking-history li { margin: .7rem 0; }
+.tracking-history span { display: block; color: var(--muted); font-size: .9rem; }
+.delivery-map { width: 100%; height: 360px; overflow: hidden; border-radius: 12px; }
+.delivery-map .leaflet-container { width: 100%; height: 100%; }
+.map-placeholder { min-height: 260px; display: grid; place-items: center; background: #f4e8dc; border-radius: 12px; }
+@media(max-width: 600px) { .delivery-map { height: 280px; } .propagation-card { width: 100%; } }
