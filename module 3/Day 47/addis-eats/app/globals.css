@@ -1,0 +1,46 @@
+.tracking-page {
+  width: min(1100px, 100% - 32px);
+  margin: 40px auto;
+}
+
+.tracking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.panel {
+  padding: 20px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(35, 36, 58, 0.05);
+}
+
+.map-placeholder {
+  height: 360px;
+  border-radius: 10px;
+  background: #e7e8f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tracking-page .status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.tracking-page button,
+.tracking-page input {
+  margin: 5px 5px 5px 0;
+}
+
+@media (max-width: 700px) {
+  .tracking-grid {
+    grid-template-columns: 1fr;
+  }
+}
