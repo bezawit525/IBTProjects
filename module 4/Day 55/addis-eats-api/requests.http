@@ -1,0 +1,64 @@
+@host = http://localhost:3000/api
+
+### List all restaurants
+GET {{host}}/restaurants
+
+### Filter restaurants by area
+GET {{host}}/restaurants?area=Bole
+
+### Get restaurant by ID
+GET {{host}}/restaurants/1
+
+### Missing restaurant should return 404
+GET {{host}}/restaurants/99
+
+### Create restaurant should return 201
+POST {{host}}/restaurants
+Content-Type: application/json
+
+{
+  "name": "Sishu",
+  "area": "Kazanchis"
+}
+
+### List all dishes
+GET {{host}}/dishes
+
+### Get dish by ID
+GET {{host}}/dishes/1
+
+### Filter dishes by restaurant ID
+GET {{host}}/dishes?restaurantId=1
+
+### Create dish should return 201
+POST {{host}}/dishes
+Content-Type: application/json
+
+{
+  "name": "Special Kitfo",
+  "priceSantim": 42000,
+  "restaurantId": 1
+}
+
+### Missing dish should return 404
+GET {{host}}/dishes/99
+
+### Dish with invalid price should return 400
+POST {{host}}/dishes
+Content-Type: application/json
+
+{
+  "name": "Invalid Dish",
+  "priceSantim": 0,
+  "restaurantId": 1
+}
+
+### Dish referencing a missing restaurant should return 400
+POST {{host}}/dishes
+Content-Type: application/json
+
+{
+  "name": "Unknown Restaurant Dish",
+  "priceSantim": 15000,
+  "restaurantId": 99
+}
