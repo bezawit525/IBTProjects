@@ -1,0 +1,67 @@
+@base = http://localhost:3000/api/v1
+@apiKey = change-this-local-development-key
+
+### Restaurants
+GET {{base}}/restaurants
+
+### Restaurant details
+GET {{base}}/restaurants/1
+
+### Restaurant menu
+GET {{base}}/restaurants/1/dishes
+
+### Dishes
+GET {{base}}/dishes
+
+### One dish
+GET {{base}}/dishes/1
+
+### Orders
+GET {{base}}/orders
+x-request-id: day60-order-list-001
+
+### Order details
+GET {{base}}/orders/1
+
+### Create order (valid example; 201 + Location)
+POST {{base}}/orders
+Content-Type: application/json
+x-request-id: day60-create-001
+
+{
+  "customerName": "Beza",
+  "area": "Bole",
+  "phone": "0912345678",
+  "lines": [{"dishId": 1, "quantity": 1}]
+}
+
+### Update status
+PATCH {{base}}/orders/1/status
+Content-Type: application/json
+
+{"status":"preparing"}
+
+### Staff-only endpoint
+GET {{base}}/orders/staff-only
+x-api-key: {{apiKey}}
+
+### Delete order (staff only)
+DELETE {{base}}/orders/3
+x-api-key: {{apiKey}}
+
+### Prove redaction: token, api key, and phone must not appear raw in logs
+POST {{base}}/orders
+Content-Type: application/json
+Authorization: Bearer SECRET_TOKEN_SHOULD_NOT_APPEAR
+x-api-key: SECRET_API_KEY_SHOULD_NOT_APPEAR
+x-request-id: redaction-proof-001
+
+{
+  "customerName": "Redaction Test",
+  "area": "Bole",
+  "phone": "0999999999",
+  "lines": [{"dishId": 1, "quantity": 1}]
+}
+
+### Timeout demo (takes 6 seconds; expected HTTP 408)
+GET {{base}}/orders/slow

@@ -1,0 +1,1 @@
+import {IsIn} from 'class-validator';import {ApiProperty} from '@nestjs/swagger';export const STATUSES=['pending','preparing','ready','out-for-delivery','delivered','cancelled'] as const;export type Status=(typeof STATUSES)[number];export class UpdateStatusDto {@ApiProperty({enum:STATUSES,example:'preparing'}) @IsIn(STATUSES) status!:Status;}

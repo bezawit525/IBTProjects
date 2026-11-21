@@ -1,0 +1,432 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Addis Eats API",
+    "description": "Food delivery for Addis Ababa. Money is in whole santim (100 santim = 1 ETB); TeleBirr phone numbers use the 09xxxxxxxx or +2519xxxxxxxx format. Order totals are computed from menu items on the server.",
+    "version": "1.0",
+    "x-generated-from": "NestJS Swagger decorators; committed Day 60 export"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "restaurants",
+      "description": "Kitchens that take orders"
+    },
+    {
+      "name": "dishes",
+      "description": "Items on a restaurant menu"
+    },
+    {
+      "name": "orders",
+      "description": "Customer orders and their status"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "api-key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "CreateOrderDto": {
+        "type": "object",
+        "required": [
+          "customerName",
+          "area",
+          "phone",
+          "lines"
+        ],
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 80,
+            "example": "Beza",
+            "description": "Customer's full name"
+          },
+          "area": {
+            "type": "string",
+            "enum": [
+              "Bole",
+              "Piassa",
+              "Megenagna",
+              "Kazanchis"
+            ],
+            "example": "Bole"
+          },
+          "phone": {
+            "type": "string",
+            "example": "0912345678",
+            "description": "TeleBirr phone number"
+          },
+          "lines": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/OrderLineDto"
+            }
+          }
+        }
+      },
+      "OrderLineDto": {
+        "type": "object",
+        "required": [
+          "dishId",
+          "quantity"
+        ],
+        "properties": {
+          "dishId": {
+            "type": "integer",
+            "example": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "example": 1
+          }
+        }
+      },
+      "OrderResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 12
+          },
+          "customerName": {
+            "type": "string",
+            "example": "Beza"
+          },
+          "area": {
+            "type": "string",
+            "example": "Bole"
+          },
+          "status": {
+            "type": "string",
+            "example": "pending"
+          },
+          "totalSantim": {
+            "type": "integer",
+            "example": 35000,
+            "description": "Whole santim; 35000 = 350 ETB"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/restaurants": {
+      "get": {
+        "tags": [
+          "restaurants"
+        ],
+        "summary": "List all restaurants",
+        "operationId": "get_api_v1_restaurants",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/restaurants/{id}": {
+      "get": {
+        "tags": [
+          "restaurants"
+        ],
+        "summary": "Get one restaurant by id",
+        "operationId": "get_api_v1_restaurants_id",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/restaurants/{id}/dishes": {
+      "get": {
+        "tags": [
+          "restaurants"
+        ],
+        "summary": "List dishes for a restaurant",
+        "operationId": "get_api_v1_restaurants_id_dishes",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/dishes": {
+      "get": {
+        "tags": [
+          "dishes"
+        ],
+        "summary": "List dishes, optionally filtered by restaurant",
+        "operationId": "get_api_v1_dishes",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/dishes/{id}": {
+      "get": {
+        "tags": [
+          "dishes"
+        ],
+        "summary": "Get one dish by id",
+        "operationId": "get_api_v1_dishes_id",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/orders": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "List orders, newest first, optionally filtered by delivery area",
+        "operationId": "get_api_v1_orders",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Place an order from menu dish ids and quantities",
+        "operationId": "post_api_v1_orders",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation failed or dish id invalid"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/slow": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Demonstrate request timeout handling",
+        "operationId": "get_api_v1_orders_slow",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/orders/staff-only": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Check staff-only access",
+        "operationId": "get_api_v1_orders_staff_only",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "401": {
+            "description": "API key missing"
+          },
+          "403": {
+            "description": "API key invalid"
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ]
+      }
+    },
+    "/api/v1/orders/{id}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Get one order by id",
+        "operationId": "get_api_v1_orders_id",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Delete an order (staff only)",
+        "operationId": "delete_api_v1_orders_id",
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "409": {
+            "description": "Invalid status transition or conflict"
+          },
+          "401": {
+            "description": "API key missing"
+          },
+          "403": {
+            "description": "API key invalid"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "security": [
+          {
+            "api-key": []
+          }
+        ]
+      }
+    },
+    "/api/v1/orders/{id}/status": {
+      "patch": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Advance an order through its allowed status transitions",
+        "operationId": "patch_api_v1_orders_id_status",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "409": {
+            "description": "Invalid status transition or conflict"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "preparing",
+                      "ready",
+                      "out-for-delivery",
+                      "delivered",
+                      "cancelled"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

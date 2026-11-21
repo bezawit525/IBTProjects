@@ -1,0 +1,1 @@
+import {Injectable,NotFoundException} from '@nestjs/common';import {dishes,type Dish} from './dish.types.js';@Injectable() export class DishesService {findAll():Dish[]{return dishes;}findOne(id:number):Dish{const dish=dishes.find(x=>x.id===id);if(!dish)throw new NotFoundException(`Dish ${id} not found`);return dish;}}

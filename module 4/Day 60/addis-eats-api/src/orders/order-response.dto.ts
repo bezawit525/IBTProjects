@@ -1,0 +1,1 @@
+import {ApiProperty} from '@nestjs/swagger';export class OrderResponseDto {@ApiProperty({example:12}) id!:number;@ApiProperty({example:'Beza'}) customerName!:string;@ApiProperty({example:'Bole'}) area!:string;@ApiProperty({example:'pending'}) status!:string;@ApiProperty({example:35000,description:'Whole santim; 35000 = 350 ETB'}) totalSantim!:number;}
