@@ -1,0 +1,83 @@
+@host = http://localhost:3000/api/v1
+
+### 1. List restaurants — 200
+GET {{host}}/restaurants
+
+### 2. Old unversioned route must be 404
+GET http://localhost:3000/api/restaurants
+
+### Filter restaurants using query string
+GET {{host}}/restaurants?isOpen=true&area=Bole,Piassa
+
+### Sparse fields — smaller restaurant response
+GET {{host}}/restaurants?fields=id,name,area
+
+### Descending restaurant sort
+GET {{host}}/restaurants?sort=-name
+
+### Restaurant member
+GET {{host}}/restaurants/1
+
+### Create restaurant — 201 + Location
+POST {{host}}/restaurants
+Content-Type: application/json
+
+{
+  "name": "Sishu",
+  "area": "Kazanchis"
+}
+
+### Nested restaurant dishes
+GET {{host}}/restaurants/1/dishes
+
+### List dishes with paging and sort
+GET {{host}}/dishes?limit=5&offset=0&sort=-priceSantim
+
+### List orders
+GET {{host}}/orders
+
+### Status filter, comma-separated values
+GET {{host}}/orders?status=pending,preparing
+
+### Descending total sort
+GET {{host}}/orders?sort=-totalSantim
+
+### Sparse order fields
+GET {{host}}/orders?fields=id,customer,status,totalSantim
+
+### Pending orders are now a query filter, not a route
+GET {{host}}/orders?status=pending
+
+### Get one order
+GET {{host}}/orders/1
+
+### Create order — 201 + Location
+POST {{host}}/orders
+Content-Type: application/json
+
+{
+  "customer": "Beza Hayalu",
+  "area": "Bole",
+  "restaurantId": 1,
+  "totalSantim": 45000
+}
+
+### Update only the order status
+PATCH {{host}}/orders/2/status
+Content-Type: application/json
+
+{
+  "status": "preparing"
+}
+
+### Delete order — 204
+DELETE {{host}}/orders/1
+
+### Delete same order again — 204 again (idempotent)
+DELETE {{host}}/orders/1
+
+### Orders belonging to restaurant 1
+GET {{host}}/restaurants/1/orders?status=pending,preparing
+
+### Invalid sort field — 400
+GET {{host}}/orders?sort=-unknownField
