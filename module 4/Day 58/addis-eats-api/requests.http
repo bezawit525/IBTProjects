@@ -1,0 +1,63 @@
+@base = http://localhost:3000/api/v1
+
+### Valid order — 201 and Location header
+POST {{base}}/orders
+Content-Type: application/json
+
+{
+  "customer": "Beza",
+  "restaurantId": 1,
+  "area": "Bole",
+  "phone": "0912345678",
+  "totalSantim": 35000,
+  "lines": [{"dishId": 1, "quantity": 1}],
+  "isScheduled": false
+}
+
+### Invalid TeleBirr number — 400
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":1,"area":"Bole","phone":"0812345678","totalSantim":35000,"lines":[{"dishId":1,"quantity":1}],"isScheduled":false}
+
+### Invalid nested line — 400, lines.0.dishId
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":1,"area":"Bole","phone":"0912345678","totalSantim":35000,"lines":[{"quantity":2}],"isScheduled":false}
+
+### Unknown property — 400
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":1,"area":"Bole","phone":"0912345678","totalSantim":35000,"lines":[{"dishId":1,"quantity":1}],"isScheduled":false,"isAdmin":true}
+
+### Missing restaurant — 404
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":99,"area":"Bole","phone":"0912345678","totalSantim":35000,"lines":[{"dishId":1,"quantity":1}],"isScheduled":false}
+
+### Closed restaurant — 409
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":3,"area":"Megenagna","phone":"0912345678","totalSantim":35000,"lines":[{"dishId":5,"quantity":1}],"isScheduled":false}
+
+### Dish belongs to another restaurant — 422
+POST {{base}}/orders
+Content-Type: application/json
+
+{"customer":"Beza","restaurantId":1,"area":"Bole","phone":"0912345678","totalSantim":35000,"lines":[{"dishId":3,"quantity":1}],"isScheduled":false}
+
+### Invalid transition — 409 (order 3 is DELIVERED)
+PATCH {{base}}/orders/3/status
+Content-Type: application/json
+
+{"status":"PENDING"}
+
+### Missing order — 404
+GET {{base}}/orders/99999
+
+### Orders for restaurant 1
+GET {{base}}/restaurants/1/orders

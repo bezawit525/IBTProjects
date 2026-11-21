@@ -1,0 +1,14 @@
+{
+  "customer": "Beza",
+  "restaurantId": 99,
+  "area": "Bole",
+  "phone": "0912345678",
+  "totalSantim": 35000,
+  "lines": [
+    {
+      "dishId": 1,
+      "quantity": 1
+    }
+  ],
+  "isScheduled": false
+}
