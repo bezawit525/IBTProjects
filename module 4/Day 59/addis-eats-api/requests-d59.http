@@ -1,0 +1,43 @@
+@base = http://localhost:3000/api/v1
+
+### 1. Every response has a generated request id
+GET {{base}}/orders
+
+### 2. Caller-supplied request id is honoured unchanged
+GET {{base}}/orders
+x-request-id: mine-123
+
+### 3. Error response includes the same non-null request id
+GET {{base}}/orders/99999
+x-request-id: error-check-123
+
+### 4. Missing API key on protected DELETE -> 401
+DELETE {{base}}/orders/1
+
+### 5. Wrong API key on protected DELETE -> 403
+DELETE {{base}}/orders/1
+x-api-key: wrong
+
+### 6. Correct API key on protected DELETE -> 204
+# Set API_KEY in the terminal to the same value you send here.
+DELETE {{base}}/orders/1
+x-api-key: change-this-local-development-key
+
+### 7. @Roles("staff") blocks a caller without a staff identity -> 403
+GET {{base}}/orders/staff-only
+
+### 8. Logging interceptor includes route/controller/method/duration/request id
+GET {{base}}/orders/2
+x-request-id: logging-check-7
+
+### 9. Timeout interceptor: this deliberately waits six seconds and must return 408
+GET {{base}}/orders/slow
+
+### 10. ParseAreaPipe normalises lowercase
+GET {{base}}/orders?area=bole
+
+### 11. ParseAreaPipe normalises uppercase
+GET {{base}}/orders?area=BOLE
+
+### 12. ParseAreaPipe rejects an unknown area with 400
+GET {{base}}/orders?area=adama
