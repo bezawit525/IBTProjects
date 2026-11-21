@@ -1,0 +1,56 @@
+@base = http://localhost:3000/api
+
+### Restaurants - all, paginated
+GET {{base}}/restaurants
+
+### Static route before dynamic route
+GET {{base}}/restaurants/open
+
+### Filter restaurants
+GET {{base}}/restaurants?area=Bole&limit=10
+
+### Restaurant member
+GET {{base}}/restaurants/1
+
+### Restaurant dishes - sub-resource
+GET {{base}}/restaurants/1/dishes
+
+### Missing parent restaurant - 404
+GET {{base}}/restaurants/99/dishes
+
+### Dishes - all, paginated
+GET {{base}}/dishes
+
+### Dishes for restaurant 1
+GET {{base}}/dishes?restaurantId=1
+
+### Orders - all, paginated
+GET {{base}}/orders
+
+### Pending orders - static route
+GET {{base}}/orders/pending
+
+### Orders for restaurant 1
+GET {{base}}/restaurants/1/orders
+
+### Create an order
+POST {{base}}/orders
+Content-Type: application/json
+
+{
+  "customer": "Beza",
+  "area": "Bole",
+  "restaurantId": 1,
+  "totalSantim": 45000
+}
+
+### Change order status
+PATCH {{base}}/orders/1/status
+Content-Type: application/json
+
+{
+  "status": "preparing"
+}
+
+### Delete order - 204 empty response
+DELETE {{base}}/orders/14

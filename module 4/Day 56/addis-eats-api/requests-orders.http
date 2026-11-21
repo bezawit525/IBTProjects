@@ -1,0 +1,56 @@
+@base = http://localhost:3000/api
+
+### 1. All orders (Page<Order>)
+GET {{base}}/orders
+
+### 2. Filter orders by status
+GET {{base}}/orders?status=pending
+
+### 3. Filter orders by area
+GET {{base}}/orders?area=Bole
+
+### 4. Pagination - first page
+GET {{base}}/orders?limit=5&offset=0
+
+### 5. Pagination - second page
+GET {{base}}/orders?limit=5&offset=5
+
+### 6. Limit above @Max(50) must return 400
+GET {{base}}/orders?limit=999
+
+### 7. Static route must match before :id
+GET {{base}}/orders/pending
+
+### 8. Get one order
+GET {{base}}/orders/1
+
+### 9. Get orders for restaurant 1
+GET {{base}}/restaurants/1/orders
+
+### 10. Missing restaurant must return 404, not an empty page
+GET {{base}}/restaurants/99/orders
+
+### 11. Update order status
+PATCH {{base}}/orders/1/status
+Content-Type: application/json
+
+{
+  "status": "preparing"
+}
+
+### 12. Delete an order - 204 with an empty body
+DELETE {{base}}/orders/14
+
+### Missing order - 404
+GET {{base}}/orders/999
+
+### Delete missing order - 404
+DELETE {{base}}/orders/999
+
+### Invalid status - 400
+PATCH {{base}}/orders/1/status
+Content-Type: application/json
+
+{
+  "status": "shipped"
+}
